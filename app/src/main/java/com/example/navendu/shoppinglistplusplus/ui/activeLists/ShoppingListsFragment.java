@@ -2,6 +2,7 @@ package com.example.navendu.shoppinglistplusplus.ui.activeLists;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.firebase.client.ValueEventListener;
  * Created by navendu on 7/21/2016.
  */
 public class ShoppingListsFragment extends Fragment {
+    private static String LOG_TAG = ShoppingListsFragment.class.getSimpleName();
     private ListView mListView;
     private TextView mTextViewListName;
 
@@ -75,6 +77,8 @@ public class ShoppingListsFragment extends Fragment {
         refListName.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d(LOG_TAG, "The data has changed");
+
                 // You can get the text using getValue. Since the DataSnapshot is of the exact
                 // data you asked for (the node listName), when you use getValue you know it
                 // will return a String.
