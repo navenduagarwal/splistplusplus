@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.navendu.shoppinglistplusplus.R;
+import com.example.navendu.shoppinglistplusplus.model.ShoppingList;
 import com.example.navendu.shoppinglistplusplus.utils.Constants;
 import com.firebase.client.Firebase;
 
@@ -94,7 +95,8 @@ public class AddListDialogFragment extends DialogFragment {
     public void addShoppingList() {
         Firebase firebase = new Firebase(Constants.FIREBASE_URL);
         String userEnteredListName = mEditTextListName.getText().toString();
-        firebase.child(Constants.FIREBASE_PROPERTY_LIST_NAME).setValue(userEnteredListName);
+        ShoppingList shoppingList = new ShoppingList(userEnteredListName, "Anonymous Owner");
+        firebase.child(Constants.FIREBASE_PROPERTY_LIST_NAME).setValue(shoppingList);
 
     }
 }

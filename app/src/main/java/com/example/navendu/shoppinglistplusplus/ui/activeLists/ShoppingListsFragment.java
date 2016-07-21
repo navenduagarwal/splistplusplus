@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.navendu.shoppinglistplusplus.R;
+import com.example.navendu.shoppinglistplusplus.model.ShoppingList;
 import com.example.navendu.shoppinglistplusplus.utils.Constants;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -24,7 +25,7 @@ public class ShoppingListsFragment extends Fragment {
     private static String LOG_TAG = ShoppingListsFragment.class.getSimpleName();
     private ListView mListView;
     private TextView mTextViewListName;
-
+    private TextView mTextViewOwnerName;
     public ShoppingListsFragment() {
         /* Required empty public constructor */
     }
@@ -82,10 +83,13 @@ public class ShoppingListsFragment extends Fragment {
                 // You can get the text using getValue. Since the DataSnapshot is of the exact
                 // data you asked for (the node listName), when you use getValue you know it
                 // will return a String.
-                String listName = (String) dataSnapshot.getValue();
+                ShoppingList shoppingList = dataSnapshot.getValue(ShoppingList.class);
                 //Now take the TextView for the list Name
-                //set it's value to listName
-                mTextViewListName.setText(listName);
+                //set it's value to shopping list
+                if (shoppingList != null) {
+                    mTextViewListName.setText(shoppingList.getListName());
+                    mTextViewOwnerName.setText(shoppingList.getOwner());
+                }
             }
 
             @Override
@@ -119,5 +123,6 @@ public class ShoppingListsFragment extends Fragment {
     private void initializeScreen(View rootView) {
         mListView = (ListView) rootView.findViewById(R.id.list_view_active_lists);
         mTextViewListName = (TextView) rootView.findViewById(R.id.text_view_list_name);
+        mTextViewOwnerName = (TextView) rootView.findViewById(R.id.text_view_created_by_user);
     }
 }
