@@ -1,0 +1,17 @@
+# Gradle files
+gradle.properties
+
+
+# Log Files
+*.log
+
+# Android Studio captures folder
+captures/
+
+# Intellij
+*.iml
+.idea/workspace.xml
+.idea/libraries
+
+# Keystore files
+*.jks
