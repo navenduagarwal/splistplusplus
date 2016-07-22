@@ -11,7 +11,7 @@ public class Constants {
      * Constants related to locations in Firebase, such as the name of the node
      * where active lists are stored (ie "activeLists")
      */
-    public static final String FIREBASE_LOCATION_ACTIVE_LIST = "activeLists";
+    public static final String FIREBASE_LOCATION_ACTIVE_LISTS = "activeLists";
 
     /**
      * Constants for Firebase object properties
@@ -24,7 +24,7 @@ public class Constants {
      * Constants for Firebase URL
      */
     public static final String FIREBASE_URL = BuildConfig.UNIQUE_FIREBASE_ROOT_URL;
-    public static final String FIREBASE_URL_ACTIVE_LIST = FIREBASE_URL + "/" + FIREBASE_LOCATION_ACTIVE_LIST;
+    public static final String FIREBASE_URL_ACTIVE_LISTS = FIREBASE_URL + "/" + FIREBASE_LOCATION_ACTIVE_LISTS;
     // TODO Consider adding a constant for the URL for your lists
 
 
@@ -33,4 +33,5 @@ public class Constants {
      */
     public static final String KEY_LAYOUT_RESOURCE = "LAYOUT_RESOURCE";
     public static final String KEY_LIST_NAME = "LIST_NAME";
+    public static final String KEY_LIST_ID = "LIST_ID";
 }

@@ -23,9 +23,9 @@ public class EditListNameDialogFragment extends EditListDialogFragment {
     /**
      * Public static constructor that creates fragment and passes a bundle with data into it when adapter is created
      */
-    public static EditListNameDialogFragment newInstance(ShoppingList shoppingList) {
+    public static EditListNameDialogFragment newInstance(ShoppingList shoppingList, String listId) {
         EditListNameDialogFragment editListNameDialogFragment = new EditListNameDialogFragment();
-        Bundle bundle = EditListDialogFragment.newInstanceHelper(shoppingList, R.layout.dialog_edit_list);
+        Bundle bundle = EditListDialogFragment.newInstanceHelper(shoppingList, R.layout.dialog_edit_list, listId);
         bundle.putString(Constants.KEY_LIST_NAME, shoppingList.getListName());
         editListNameDialogFragment.setArguments(bundle);
         return editListNameDialogFragment;
@@ -66,20 +66,19 @@ public class EditListNameDialogFragment extends EditListDialogFragment {
      */
     protected void doListEdit() {
         final String inputListName = mEditTextForList.getText().toString();
-
         /**
          *Set input text to the current list if it is not empty
          */
 
         if (!inputListName.equals("")) {
-            if (mListName != null) {
+            if (mListName != null && mListId != null) {
 
                 /**
                  * IF edit text is not equal to previous name
                  */
                 if (!inputListName.equals(mListName)) {
                     DatabaseReference shoppingListRef = FirebaseDatabase.getInstance()
-                            .getReferenceFromUrl(Constants.FIREBASE_URL_ACTIVE_LIST);
+                            .getReferenceFromUrl(Constants.FIREBASE_URL_ACTIVE_LISTS).child(mListId);
 
                 /* Make a hashmap for the specific properties we are changing */
                     HashMap<String, Object> updatedProperties = new HashMap<>();
