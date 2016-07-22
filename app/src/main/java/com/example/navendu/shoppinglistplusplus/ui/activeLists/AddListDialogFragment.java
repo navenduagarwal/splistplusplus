@@ -55,8 +55,7 @@ public class AddListDialogFragment extends DialogFragment {
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the Builder class for convenient dialog construction
+    public Dialog onCreateDialog(Bundle savedInstanceState) {// Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.CustomTheme_Dialog);
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();

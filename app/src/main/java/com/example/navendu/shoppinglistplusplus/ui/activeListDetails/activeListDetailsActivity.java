@@ -13,6 +13,7 @@ import android.widget.ListView;
 
 import com.example.navendu.shoppinglistplusplus.R;
 import com.example.navendu.shoppinglistplusplus.model.ShoppingList;
+import com.example.navendu.shoppinglistplusplus.model.ShoppingListItem;
 import com.example.navendu.shoppinglistplusplus.ui.BaseActivity;
 import com.example.navendu.shoppinglistplusplus.utils.Constants;
 import com.google.firebase.database.DataSnapshot;
@@ -30,15 +31,17 @@ public class ActiveListDetailsActivity extends BaseActivity {
     private ShoppingList mShoppingList;
     private DatabaseReference mActiveListRef;
     private String mListId;
+    private ActiveListItemAdapter mActiveListItemAdapter;
+    private ValueEventListener mActiveListRefListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active_list_details);
-
         /**
          * Firebase reference
          */
+
         /* Get the push ID from the extra passed by ShoppingListFragment */
         Intent intent = this.getIntent();
         mListId = intent.getStringExtra(Constants.KEY_LIST_ID);
@@ -55,7 +58,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
          */
         initializeScreen();
 
-        mActiveListRef.addValueEventListener(new ValueEventListener() {
+        mActiveListRefListener = mActiveListRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -84,6 +87,20 @@ public class ActiveListDetailsActivity extends BaseActivity {
 
 
         /**
+         * Create Firebase references
+         */
+        DatabaseReference itemsListRef = FirebaseDatabase.getInstance()
+                .getReferenceFromUrl(Constants.FIREBASE_URL_SHOPPING_LIST_ITEMS).child(mListId);
+        mActiveListItemAdapter = new ActiveListItemAdapter(this, ShoppingListItem.class,
+                R.layout.single_active_list_item, itemsListRef);
+
+        /**
+         * Set the adapter to the mListView
+         */
+        mListView.setAdapter(mActiveListItemAdapter);
+
+
+        /**
          * Set up click listeners for interaction.
          */
 
@@ -99,6 +116,8 @@ public class ActiveListDetailsActivity extends BaseActivity {
                 return true;
             }
         });
+
+
     }
 
     @Override
@@ -167,6 +186,8 @@ public class ActiveListDetailsActivity extends BaseActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mActiveListItemAdapter.cleanup();
+        mActiveListRef.removeEventListener(mActiveListRefListener);
     }
 
     /**
@@ -243,4 +264,5 @@ public class ActiveListDetailsActivity extends BaseActivity {
     public void toggleShopping(View view) {
 
     }
+
 }
