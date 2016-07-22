@@ -1,8 +1,8 @@
 package com.example.navendu.shoppinglistplusplus.ui.activeLists;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +11,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.navendu.shoppinglistplusplus.R;
-import com.example.navendu.shoppinglistplusplus.model.ShoppingList;
+import com.example.navendu.shoppinglistplusplus.ui.activeListDetails.ActiveListDetailsActivity;
 import com.example.navendu.shoppinglistplusplus.utils.Constants;
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 
 /**
  * Created by navendu on 7/21/2016.
@@ -26,6 +23,8 @@ public class ShoppingListsFragment extends Fragment {
     private ListView mListView;
     private TextView mTextViewListName;
     private TextView mTextViewOwnerName;
+    private TextView mTextViewEditTime;
+
     public ShoppingListsFragment() {
         /* Required empty public constructor */
     }
@@ -69,34 +68,41 @@ public class ShoppingListsFragment extends Fragment {
         /**
          * Create Firebase references
          */
-        Firebase refListName = new Firebase(Constants.FIREBASE_URL).child(Constants.FIREBASE_PROPERTY_LIST_NAME);
+        Firebase refListName = new Firebase(Constants.FIREBASE_URL).child(Constants.FIREBASE_LOCATION_ACTIVE_LIST);
 
         /**
          * Add valueEventListener to Firebase references
          * to control get data and control behaviour and visibility of elements
          */
-        refListName.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(LOG_TAG, "The data has changed");
+//        refListName.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Log.d(LOG_TAG, "The data has changed");
+//
+//                // You can get the text using getValue. Since the DataSnapshot is of the exact
+//                // data you asked for (the node listName), when you use getValue you know it
+//                // will return a String.
+//                ShoppingList shoppingList = dataSnapshot.getValue(ShoppingList.class);
+//                //Now take the TextView for the list Name
+//                //set it's value to shopping list
+//                if (shoppingList != null) {
+//                    mTextViewListName.setText(shoppingList.getListName());
+//                    mTextViewOwnerName.setText(shoppingList.getOwner());
+//                    if (shoppingList.getTimestampLastChanged() != null) {
+//                        mTextViewEditTime.setText(
+//
+//                                Utils.SIMPLE_DATE_FORMAT.format(shoppingList.getTimestampLastChangedLong()));
+//                    } else {
+//                        mTextViewEditTime.setText("Not Available");
+//                    }
+//                }
+//            }
 
-                // You can get the text using getValue. Since the DataSnapshot is of the exact
-                // data you asked for (the node listName), when you use getValue you know it
-                // will return a String.
-                ShoppingList shoppingList = dataSnapshot.getValue(ShoppingList.class);
-                //Now take the TextView for the list Name
-                //set it's value to shopping list
-                if (shoppingList != null) {
-                    mTextViewListName.setText(shoppingList.getListName());
-                    mTextViewOwnerName.setText(shoppingList.getOwner());
-                }
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
+//            @Override
+//            public void onCancelled(FirebaseError firebaseError) {
+//                Log.e(LOG_TAG,getString(R.string.log_error_the_read_failed)+firebaseError.getMessage());
+//            }
+//        });
 
         /**
          * Set interactive bits, such as click events and adapters
@@ -107,6 +113,17 @@ public class ShoppingListsFragment extends Fragment {
 
             }
         });
+
+        // TODO Add an OnClick listener here so that when the user clicks on the
+        mTextViewListName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addIntent = new Intent(getActivity(), ActiveListDetailsActivity.class);
+                startActivity(addIntent);
+            }
+        });
+
+        // mTextViewListName it opens up an instance of ActiveListDetailsActivity
 
         return rootView;
     }
@@ -124,5 +141,6 @@ public class ShoppingListsFragment extends Fragment {
         mListView = (ListView) rootView.findViewById(R.id.list_view_active_lists);
         mTextViewListName = (TextView) rootView.findViewById(R.id.text_view_list_name);
         mTextViewOwnerName = (TextView) rootView.findViewById(R.id.text_view_created_by_user);
+        mTextViewEditTime = (TextView) rootView.findViewById(R.id.text_view_edit_time);
     }
 }

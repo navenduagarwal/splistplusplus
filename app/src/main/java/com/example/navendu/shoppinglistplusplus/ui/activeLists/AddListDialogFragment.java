@@ -93,10 +93,24 @@ public class AddListDialogFragment extends DialogFragment {
      * Add new active list
      */
     public void addShoppingList() {
-        Firebase firebase = new Firebase(Constants.FIREBASE_URL);
         String userEnteredListName = mEditTextListName.getText().toString();
-        ShoppingList shoppingList = new ShoppingList(userEnteredListName, "Anonymous Owner");
-        firebase.child(Constants.FIREBASE_PROPERTY_LIST_NAME).setValue(shoppingList);
+        String owner = "Anonymous Owner";
 
+        /**
+         * If EditText input is not empty
+         */
+        if (!userEnteredListName.equals("")) {
+            Firebase listsRef = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST);
+            Firebase newListRef = listsRef.push();
+
+            /* Save listRef.push() to maintain same random Id*/
+            final String listId = newListRef.getKey();
+
+            ShoppingList newShoppingList = new ShoppingList(userEnteredListName, owner);
+            newListRef.setValue(newShoppingList);
+
+            /*Close the dialog fragment */
+            AddListDialogFragment.this.getDialog().cancel();
+        }
     }
 }
