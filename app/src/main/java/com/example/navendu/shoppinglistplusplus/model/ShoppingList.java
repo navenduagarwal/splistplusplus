@@ -1,8 +1,8 @@
 package com.example.navendu.shoppinglistplusplus.model;
 
 import com.example.navendu.shoppinglistplusplus.utils.Constants;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.firebase.client.ServerValue;
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.ServerValue;
 
 import java.util.HashMap;
 
@@ -45,12 +45,12 @@ public class ShoppingList {
         return timestampCreated;
     }
 
-    @JsonIgnore
+    @Exclude
     public long getTimestampLastChangedLong() {
         return (long) timestampLastChanged.get(Constants.FIREBASE_PROPERTY_TIMESTAMP);
     }
 
-    @JsonIgnore
+    @Exclude
     public long getTimestampCreatedLong() {
         return (long) timestampCreated.get(Constants.FIREBASE_PROPERTY_TIMESTAMP);
     }

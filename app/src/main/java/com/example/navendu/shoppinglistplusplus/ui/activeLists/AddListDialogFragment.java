@@ -16,7 +16,8 @@ import android.widget.TextView;
 import com.example.navendu.shoppinglistplusplus.R;
 import com.example.navendu.shoppinglistplusplus.model.ShoppingList;
 import com.example.navendu.shoppinglistplusplus.utils.Constants;
-import com.firebase.client.Firebase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * Created by navendu on 7/21/2016.
@@ -100,8 +101,9 @@ public class AddListDialogFragment extends DialogFragment {
          * If EditText input is not empty
          */
         if (!userEnteredListName.equals("")) {
-            Firebase listsRef = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST);
-            Firebase newListRef = listsRef.push();
+            DatabaseReference listsRef = FirebaseDatabase.getInstance()
+                    .getReferenceFromUrl(Constants.FIREBASE_URL_ACTIVE_LIST);
+            DatabaseReference newListRef = listsRef.push();
 
             /* Save listRef.push() to maintain same random Id*/
             final String listId = newListRef.getKey();

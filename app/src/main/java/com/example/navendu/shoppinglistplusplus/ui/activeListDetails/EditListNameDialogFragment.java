@@ -7,8 +7,9 @@ import android.view.WindowManager;
 import com.example.navendu.shoppinglistplusplus.R;
 import com.example.navendu.shoppinglistplusplus.model.ShoppingList;
 import com.example.navendu.shoppinglistplusplus.utils.Constants;
-import com.firebase.client.Firebase;
-import com.firebase.client.ServerValue;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 import java.util.HashMap;
 
@@ -77,7 +78,8 @@ public class EditListNameDialogFragment extends EditListDialogFragment {
                  * IF edit text is not equal to previous name
                  */
                 if (!inputListName.equals(mListName)) {
-                    Firebase shoppingListRef = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST);
+                    DatabaseReference shoppingListRef = FirebaseDatabase.getInstance()
+                            .getReferenceFromUrl(Constants.FIREBASE_URL_ACTIVE_LIST);
 
                 /* Make a hashmap for the specific properties we are changing */
                     HashMap<String, Object> updatedProperties = new HashMap<>();

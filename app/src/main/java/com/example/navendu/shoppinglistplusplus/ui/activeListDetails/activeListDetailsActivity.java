@@ -14,10 +14,11 @@ import com.example.navendu.shoppinglistplusplus.R;
 import com.example.navendu.shoppinglistplusplus.model.ShoppingList;
 import com.example.navendu.shoppinglistplusplus.ui.BaseActivity;
 import com.example.navendu.shoppinglistplusplus.utils.Constants;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Represents the details screen for the selected shopping list
@@ -26,7 +27,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
     private static final String LOG_TAG = ActiveListDetailsActivity.class.getSimpleName();
     private ListView mListView;
     private ShoppingList mShoppingList;
-    private Firebase mActiveListRef;
+    private DatabaseReference mActiveListRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +37,14 @@ public class ActiveListDetailsActivity extends BaseActivity {
         /**
          * Firebase reference
          */
-        mActiveListRef = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST);
+        mActiveListRef = FirebaseDatabase.getInstance()
+                .getReferenceFromUrl(Constants.FIREBASE_URL_ACTIVE_LIST);
 
         /**
          * Link layout elements from XML and setup the toolbar
          */
         initializeScreen();
 
-        // TODO Add the Firebase code here that will set the appropriate title for the
         mActiveListRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -63,11 +64,12 @@ public class ActiveListDetailsActivity extends BaseActivity {
                     finish();
                     return;
                 }
+
             }
 
             @Override
-            public void onCancelled(FirebaseError firebaseError) {
-                Log.e(LOG_TAG, getString(R.string.log_error_the_read_failed) + firebaseError.getMessage());
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e(LOG_TAG, getString(R.string.log_error_the_read_failed) + databaseError.getMessage());
             }
         });
 
