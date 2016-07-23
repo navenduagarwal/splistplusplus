@@ -70,6 +70,9 @@ public class RemoveListDialogFragment extends DialogFragment {
         DatabaseReference activeList = FirebaseDatabase.getInstance()
                 .getReferenceFromUrl(Constants.FIREBASE_URL_ACTIVE_LISTS).child(mListId);
         activeList.removeValue();
+        DatabaseReference itemList = FirebaseDatabase.getInstance()
+                .getReferenceFromUrl(Constants.FIREBASE_URL_SHOPPING_LIST_ITEMS).child(mListId);
+        itemList.removeValue();
     }
 
 }

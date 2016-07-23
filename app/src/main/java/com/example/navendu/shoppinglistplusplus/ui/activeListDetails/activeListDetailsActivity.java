@@ -92,13 +92,12 @@ public class ActiveListDetailsActivity extends BaseActivity {
         DatabaseReference itemsListRef = FirebaseDatabase.getInstance()
                 .getReferenceFromUrl(Constants.FIREBASE_URL_SHOPPING_LIST_ITEMS).child(mListId);
         mActiveListItemAdapter = new ActiveListItemAdapter(this, ShoppingListItem.class,
-                R.layout.single_active_list_item, itemsListRef);
+                R.layout.single_active_list_item, itemsListRef, mListId);
 
         /**
          * Set the adapter to the mListView
          */
         mListView.setAdapter(mActiveListItemAdapter);
-
 
         /**
          * Set up click listeners for interaction.
@@ -111,9 +110,15 @@ public class ActiveListDetailsActivity extends BaseActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 /* Check that the view is not the empty footer item */
                 if (view.getId() != R.id.list_view_footer_empty) {
-                    showEditListItemNameDialog();
+                    ShoppingListItem shoppingListItem = mActiveListItemAdapter.getItem(position);
+                    if (shoppingListItem != null) {
+                        String itemName = shoppingListItem.getItemName();
+                        String itemId = mActiveListItemAdapter.getRef(position).getKey();
+                        showEditListItemNameDialog(itemName, itemId);
+                        return true;
+                    }
                 }
-                return true;
+                return false;
             }
         });
 
@@ -252,9 +257,9 @@ public class ActiveListDetailsActivity extends BaseActivity {
     /**
      * Show the edit list item name dialog after longClick on the particular item
      */
-    public void showEditListItemNameDialog() {
+    public void showEditListItemNameDialog(String itemName, String itemId) {
         /* Create an instance of the dialog fragment and show it */
-        DialogFragment dialog = EditListItemNameDialogFragment.newInstance(mShoppingList, mListId);
+        DialogFragment dialog = EditListItemNameDialogFragment.newInstance(mShoppingList, mListId, itemName, itemId);
         dialog.show(this.getFragmentManager(), "EditListItemNameDialogFragment");
     }
 

@@ -9,13 +9,20 @@ import android.widget.TextView;
 
 import com.example.navendu.shoppinglistplusplus.R;
 import com.example.navendu.shoppinglistplusplus.model.ShoppingListItem;
+import com.example.navendu.shoppinglistplusplus.utils.Constants;
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ServerValue;
+
+import java.util.HashMap;
 
 /**
  * Populates list_view_shopping_list_items inside ActiveListDetailsActivity
  */
 public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem> {
+    private String mListId;
 
     /**
      * Public constructor that initializes private instance variables when adapter is created
@@ -25,8 +32,9 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
      * @param modelLayout model of data we get in reply
      * @param ref         query URL string
      */
-    public ActiveListItemAdapter(Activity activity, Class<ShoppingListItem> modelClass, int modelLayout, Query ref) {
+    public ActiveListItemAdapter(Activity activity, Class<ShoppingListItem> modelClass, int modelLayout, Query ref, String listId) {
         super(activity, modelClass, modelLayout, ref);
+        mListId = listId;
     }
 
 
@@ -40,6 +48,8 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
         TextView mTextViewItemName = (TextView) v.findViewById(R.id.text_view_active_list_item_name);
         mTextViewItemName.setText(item.getItemName());
         ImageButton trashCanButton = (ImageButton) v.findViewById(R.id.button_remove_item);
+        final String itemToRemoveId = this.getRef(position).getKey();
+
         trashCanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,7 +58,10 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
                         .setMessage(mActivity.getString(R.string.dialog_message_are_you_sure_remove_item))
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                removeItem();
+                                if (itemToRemoveId != null) {
+                                    removeItem(itemToRemoveId);
+                                }
+                                dialog.dismiss();
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -65,6 +78,31 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
         });
     }
 
-    private void removeItem() {
+    private void removeItem(String itemId) {
+        if (mListId != null) {
+            DatabaseReference firebaseRef = FirebaseDatabase.getInstance()
+                    .getReferenceFromUrl(Constants.FIREBASE_URL);
+
+            HashMap<String, Object> updatedItemToAddMap = new HashMap<>();
+
+            //Get key of current item
+            DatabaseReference itemsRef = FirebaseDatabase.getInstance()
+                    .getReferenceFromUrl(Constants.FIREBASE_URL_SHOPPING_LIST_ITEMS).child(mListId);
+
+            /* Add the item to the update map */
+            updatedItemToAddMap.put("/" + Constants.FIREBASE_LOCATION_SHOPPING_LIST_ITEMS + "/" + mListId
+                    + "/" + itemId, null);
+
+            /* Make timestamp for last changed */
+            HashMap<String, Object> changedTimestampMap = new HashMap<>();
+            changedTimestampMap.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
+
+            /* Add the updated timestamp */
+            updatedItemToAddMap.put("/" + Constants.FIREBASE_LOCATION_ACTIVE_LISTS + "/" + mListId
+                    + "/" + Constants.FIREBASE_PROPERTY_TIMESTAMP_LAST_CHANGED, changedTimestampMap);
+
+            /* Do the update */
+            firebaseRef.updateChildren(updatedItemToAddMap);
+        }
     }
 }
