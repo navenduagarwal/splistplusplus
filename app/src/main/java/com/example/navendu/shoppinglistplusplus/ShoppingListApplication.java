@@ -1,6 +1,7 @@
 package com.example.navendu.shoppinglistplusplus;
 
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Logger;
 
@@ -12,8 +13,10 @@ public class ShoppingListApplication extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        FirebaseDatabase.getInstance();
-        FirebaseDatabase.getInstance().setLogLevel(Logger.Level.DEBUG);
+        if (!FirebaseApp.getApps(this).isEmpty()) {
+            FirebaseDatabase.getInstance();
+            FirebaseDatabase.getInstance().setLogLevel(Logger.Level.DEBUG);
+        }
     }
 
 }
