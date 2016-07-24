@@ -7,7 +7,7 @@ import com.google.firebase.database.ServerValue;
 import java.util.HashMap;
 
 /**
- * Created by navendu on 7/21/2016.
+ * Defines the data structure of ShoppingList objects
  */
 public class ShoppingList {
     private String listName;

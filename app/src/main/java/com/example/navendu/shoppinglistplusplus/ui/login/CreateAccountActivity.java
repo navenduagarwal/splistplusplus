@@ -14,7 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.navendu.shoppinglistplusplus.R;
+import com.example.navendu.shoppinglistplusplus.model.User;
 import com.example.navendu.shoppinglistplusplus.ui.BaseActivity;
+import com.example.navendu.shoppinglistplusplus.ui.MainActivity;
+import com.example.navendu.shoppinglistplusplus.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,6 +25,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Represents Signup Screen and functionality of the app
@@ -31,7 +39,8 @@ public class CreateAccountActivity extends BaseActivity {
     private ProgressDialog mAuthProgressDialog;
     private EditText mEditTextUsernameCreate, mEditTextEmailCreate, mEditTextPasswordCreate;
     private String mUserName, mUserEmail, mPassword;
-
+    private ValueEventListener mActiveUserRefListener;
+    private DatabaseReference mUserRef;
     // [START declare_auth]
     private FirebaseAuth mAuth;
     // [END declare_auth]
@@ -145,6 +154,10 @@ public class CreateAccountActivity extends BaseActivity {
 
                         } else {
                             Log.i(LOG_TAG, getString(R.string.log_message_auth_successful));
+                            String uid = task.getResult().getUser().getUid();
+                            createUserInFirebaseHelper(uid);
+                            Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
+                            startActivity(intent);
                         }
                     }
                 });
@@ -154,7 +167,34 @@ public class CreateAccountActivity extends BaseActivity {
     /**
      * Creates a new user in Firebase from the Java POJO
      */
-    private void createUserInFirebaseHelper(final String encodedEmail) {
+    private void createUserInFirebaseHelper(final String uid) {
+        if (!TextUtils.isEmpty(uid)) {
+            mUserRef = FirebaseDatabase.getInstance()
+                    .getReferenceFromUrl(Constants.FIREBASE_URL_USERS).child(uid);
+            mActiveUserRefListener = mUserRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() == null) {
+                        User newUser = new User(mUserEmail, mUserName);
+                        mUserRef.setValue(newUser);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.e(LOG_TAG, getString(R.string.log_error_the_read_failed) + databaseError.getMessage());
+                }
+            });
+        }
+    }
+
+    /**
+     * Cleanup when the activity is destroyed.
+     */
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mUserRef.removeEventListener(mActiveUserRefListener);
     }
 
     private boolean isEmailValid(String email) {

@@ -145,7 +145,7 @@
         jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="24.0.0"
-        sha1="3e192080b785b8814e9f7dfeb1ccf71baac1bad1">
+        sha1="9de0660c83ad46faa0c74df10582a9dd595526c5">
         <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_4da790d4c64f96570e2e461f8b8339924ac66ef7\classes.dex" />
     </item>
     <item
@@ -215,7 +215,7 @@
         jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         revision="24.0.0"
-        sha1="020aed70c345061eab02b6f0158726857d7e5691">
+        sha1="addfbd2290ee9c6352d5794dd7c9e720232a179e">
         <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_30b3485d79054675d2a5eced4b88190f4fca53f9\classes.dex" />
     </item>
     <item
