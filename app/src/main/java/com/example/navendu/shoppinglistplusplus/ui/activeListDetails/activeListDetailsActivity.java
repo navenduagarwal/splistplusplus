@@ -138,11 +138,22 @@ public class ActiveListDetailsActivity extends BaseActivity {
         MenuItem share = menu.findItem(R.id.action_share_list);
         MenuItem archive = menu.findItem(R.id.action_archive);
 
+        /**
+         * Set visibility of menu
+         */
+        if (mShoppingList.getOwner().equals(mEncodedEmail)) {
+
         /* Only the edit and remove options are implemented */
-        remove.setVisible(true);
-        edit.setVisible(true);
-        share.setVisible(false);
-        archive.setVisible(false);
+            remove.setVisible(true);
+            edit.setVisible(true);
+            share.setVisible(false);
+            archive.setVisible(false);
+        } else {
+            remove.setVisible(false);
+            edit.setVisible(false);
+            share.setVisible(false);
+            archive.setVisible(false);
+        }
 
         return true;
     }

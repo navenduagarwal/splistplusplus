@@ -20,19 +20,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
- * Created by navendu on 7/21/2016.
+ * Adds a new shopping list
  */
 public class AddListDialogFragment extends DialogFragment {
 
-    EditText mEditTextListName;
+    private EditText mEditTextListName;
+    private String mEncodedEmail;
 
     /**
      * Public static constructor that creates fragment and
      * passes a bundle with data into it when adapter is created
      */
-    public static AddListDialogFragment newInstance() {
+    public static AddListDialogFragment newInstance(String encodedEmail) {
         AddListDialogFragment addListDialogFragment = new AddListDialogFragment();
         Bundle bundle = new Bundle();
+        bundle.putString(Constants.KEY_ENCODED_EMAIL, encodedEmail);
         addListDialogFragment.setArguments(bundle);
         return addListDialogFragment;
     }
@@ -43,6 +45,7 @@ public class AddListDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mEncodedEmail = getArguments().getString(Constants.KEY_ENCODED_EMAIL);
     }
 
     /**
@@ -94,7 +97,6 @@ public class AddListDialogFragment extends DialogFragment {
      */
     public void addShoppingList() {
         String userEnteredListName = mEditTextListName.getText().toString();
-        String owner = "Anonymous Owner";
 
         /**
          * If EditText input is not empty
@@ -107,7 +109,7 @@ public class AddListDialogFragment extends DialogFragment {
             /* Save listRef.push() to maintain same random Id*/
             final String listId = newListRef.getKey();
 
-            ShoppingList newShoppingList = new ShoppingList(userEnteredListName, owner);
+            ShoppingList newShoppingList = new ShoppingList(userEnteredListName, mEncodedEmail);
             newListRef.setValue(newShoppingList);
 
             /*Close the dialog fragment */
