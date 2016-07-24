@@ -2,7 +2,9 @@ package com.example.navendu.shoppinglistplusplus.ui.login;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,6 +21,8 @@ import android.widget.Toast;
 import com.example.navendu.shoppinglistplusplus.R;
 import com.example.navendu.shoppinglistplusplus.ui.BaseActivity;
 import com.example.navendu.shoppinglistplusplus.ui.MainActivity;
+import com.example.navendu.shoppinglistplusplus.utils.Constants;
+import com.example.navendu.shoppinglistplusplus.utils.Utils;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
@@ -36,6 +40,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserInfo;
 
 /**
  * Represents Sign in screen and functionality of the app
@@ -80,7 +85,19 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.OnCon
                 if (user != null) {
                     // User is signed in
                     Log.d(LOG_TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                                         /* Go to main activity */
+                    String firebaseEmail = user.getEmail();
+                    UserInfo userInfo = user.getProviderData().get(0);
+                    String firebaseUserName = userInfo.getDisplayName();
+                       /* Make a hashmap for the specific properties we are changing */
+                    String encodedEmail = Utils.encodeEmail(firebaseEmail);
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor spe = sharedPreferences.edit();
+                    spe.putString(Constants.KEY_ENCODED_EMAIL, encodedEmail);
+                    spe.putString(Constants.KEY_PROVIDER_ID, user.getProviderId());
+                    spe.apply();
+
+                    Utils.createUserInFirebaseHelper(firebaseEmail, firebaseUserName);
+                    /* Go to main activity */
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
@@ -112,7 +129,6 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.OnCon
     @Override
     public void onStart() {
         super.onStart();
-        mGoogleApiClient.connect();
         mAuth.addAuthStateListener(mAuthListener);
     }
     // [END on_start_add_listener]
@@ -123,9 +139,6 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.OnCon
         super.onStop();
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
-        }
-        if (mGoogleApiClient.isConnected()) {
-            mGoogleApiClient.disconnect();
         }
     }
     // [END on_stop_remove_listener]

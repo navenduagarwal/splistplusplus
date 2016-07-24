@@ -39,4 +39,14 @@ public class Constants {
     public static final String KEY_LIST_ID = "LIST_ID";
     public static final String KEY_LIST_ITEM_ID = "LIST_ITEM_ID";
     public static final String KEY_LIST_ITEM_NAME = "ITEM_NAME";
+    public static final String KEY_ENCODED_EMAIL = "ENCODED_EMAIL";
+    public static final String KEY_PROVIDER_ID = "PROVIDER_ID";
+    public static final String KEY_LIST_OWNER = "LIST_OWNER";
+
+
+    /**
+     * Constants for Firebase login
+     */
+    public static final String GOOGLE_PROVIDER = "google";
+    public static final String PROVIDER_DATA_DISPLAY_NAME = "displayName";
 }

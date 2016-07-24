@@ -8,18 +8,28 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.example.navendu.shoppinglistplusplus.R;
+import com.example.navendu.shoppinglistplusplus.model.User;
 import com.example.navendu.shoppinglistplusplus.ui.activeLists.AddListDialogFragment;
 import com.example.navendu.shoppinglistplusplus.ui.activeLists.ShoppingListsFragment;
 import com.example.navendu.shoppinglistplusplus.ui.meals.AddMealDialogFragment;
 import com.example.navendu.shoppinglistplusplus.ui.meals.MealsFragment;
+import com.example.navendu.shoppinglistplusplus.utils.Constants;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends BaseActivity {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private DatabaseReference userLocation;
+    private ValueEventListener userValueListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +39,34 @@ public class MainActivity extends BaseActivity {
          * Link layout elements from XML and setup the toolbar
          */
         initializeScreen();
+
+        /**
+         * Create Firebase references
+         */
+        userLocation = FirebaseDatabase.getInstance()
+                .getReferenceFromUrl(Constants.FIREBASE_URL_USERS).child(mEncodedEmail);
+
+        /**
+         * Adding ValueListener to control get data and visibiliy of elements on UI
+         */
+        userValueListener = userLocation.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+
+                if (user != null) {
+                    /* Assumes that the first word in the user's name is the user's first name. */
+                    String firstName = user.getName().split("\\s+")[0];
+                    String title = firstName + "'s Lists";
+                    setTitle(title);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(LOG_TAG, R.string.log_error_occurred + databaseError.getMessage());
+            }
+        });
     }
 
     /**
@@ -58,6 +96,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        userLocation.removeEventListener(userValueListener);
     }
 
     /**

@@ -1,7 +1,9 @@
 package com.example.navendu.shoppinglistplusplus.ui;
 
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 
 import com.example.navendu.shoppinglistplusplus.R;
+import com.example.navendu.shoppinglistplusplus.utils.Constants;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -21,7 +24,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
  */
 public class BaseActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener {
-
+    protected String mProvider, mEncodedEmail;
     protected GoogleApiClient mGoogleApiClient;
 
     @Override
@@ -42,6 +45,14 @@ public class BaseActivity extends AppCompatActivity implements
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+        /**
+         * Get provider and encoded email from SharedPreferences
+         */
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(BaseActivity.this);
+        /* Get mEncodedEmail and mProvider from SharedPreferences, use null as default value */
+        mEncodedEmail = sharedPreferences.getString(Constants.KEY_ENCODED_EMAIL, null);
+        mProvider = sharedPreferences.getString(Constants.KEY_PROVIDER_ID, null);
     }
 
     @Override
