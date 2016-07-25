@@ -67,10 +67,38 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
         TextView textViewItemName = (TextView) v.findViewById(R.id.text_view_active_list_item_name);
         textViewItemName.setText(item.getItemName());
 
+        String owner = item.getOwner();
+
+        final TextView textViewItemCreatedBy = (TextView) v.findViewById(R.id.text_view_created_by_user);
+        /**
+         * Updating Created By Text
+         */
+        if (owner != null) {
+            if (mEncodedEmail.equals(owner)) {
+                textViewItemCreatedBy.setText(mActivity.getString(R.string.text_you));
+            } else {
+                DatabaseReference ownersRef = FirebaseDatabase.getInstance()
+                        .getReferenceFromUrl(Constants.FIREBASE_URL_USERS).child(owner);
+                /* Get Owners name */
+                ownersRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        User owner = dataSnapshot.getValue(User.class);
+                        if (owner != null) {
+                            textViewItemCreatedBy.setText(owner.getName());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.d(mActivity.getClass().getSimpleName(), mActivity.getString(R.string.log_error_the_read_failed) + databaseError.getMessage());
+                    }
+                });
+            }
+        }
+
         final TextView textViewBoughtByUser = (TextView) v.findViewById(R.id.text_view_bought_by_user);
         TextView textViewBoughtBy = (TextView) v.findViewById(R.id.text_view_bought_by);
-
-        String owner = item.getOwner();
 
         ImageButton trashCanButton = (ImageButton) v.findViewById(R.id.button_remove_item);
         final String itemToRemoveId = this.getRef(position).getKey();
