@@ -1,16 +1,13 @@
 package com.example.navendu.shoppinglistplusplus.model;
 
-import com.example.navendu.shoppinglistplusplus.utils.Constants;
-import com.google.firebase.database.ServerValue;
-
-import java.util.HashMap;
-
 /**
  * Defines the data structure of ShoppingListItem objects
  */
 public class ShoppingListItem {
     private String itemName;
     private String owner;
+    private String boughtBy;
+    private boolean bought;
 
     public ShoppingListItem() {
     }
@@ -18,8 +15,8 @@ public class ShoppingListItem {
     public ShoppingListItem(String itemName, String owner) {
         this.itemName = itemName;
         this.owner = owner;
-        HashMap<String, Object> timestampNowObj = new HashMap<>();
-        timestampNowObj.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
+        this.boughtBy = null;
+        this.bought = false;
     }
 
     public String getItemName() {
@@ -30,4 +27,11 @@ public class ShoppingListItem {
         return owner;
     }
 
+    public String getBoughtBy() {
+        return boughtBy;
+    }
+
+    public boolean isBought() {
+        return bought;
+    }
 }

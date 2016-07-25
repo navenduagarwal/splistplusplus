@@ -27,7 +27,6 @@ public class ShoppingList {
         this.timestampCreated = timestampNowObj;
     }
 
-
     public String getListName() {
         return listName;
     }

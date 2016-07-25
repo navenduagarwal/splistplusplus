@@ -2,19 +2,25 @@ package com.example.navendu.shoppinglistplusplus.ui.activeListDetails;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.graphics.Paint;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.navendu.shoppinglistplusplus.R;
 import com.example.navendu.shoppinglistplusplus.model.ShoppingListItem;
+import com.example.navendu.shoppinglistplusplus.model.User;
 import com.example.navendu.shoppinglistplusplus.utils.Constants;
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
@@ -22,8 +28,9 @@ import java.util.HashMap;
  * Populates list_view_shopping_list_items inside ActiveListDetailsActivity
  */
 public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem> {
+    private final static String LOG_TAG = ActiveListItemAdapter.class.getSimpleName();
     private String mListId;
-
+    private String mEncodedEmail;
     /**
      * Public constructor that initializes private instance variables when adapter is created
      *
@@ -32,9 +39,11 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
      * @param modelLayout model of data we get in reply
      * @param ref         query URL string
      */
-    public ActiveListItemAdapter(Activity activity, Class<ShoppingListItem> modelClass, int modelLayout, Query ref, String listId) {
+    public ActiveListItemAdapter(Activity activity, Class<ShoppingListItem> modelClass,
+                                 int modelLayout, Query ref, String listId, String encodedEmail) {
         super(activity, modelClass, modelLayout, ref);
         mListId = listId;
+        mEncodedEmail = encodedEmail;
     }
 
 
@@ -45,10 +54,19 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
      */
     @Override
     protected void populateView(View v, ShoppingListItem item, int position) {
-        TextView mTextViewItemName = (TextView) v.findViewById(R.id.text_view_active_list_item_name);
-        mTextViewItemName.setText(item.getItemName());
+        TextView textViewItemName = (TextView) v.findViewById(R.id.text_view_active_list_item_name);
+        textViewItemName.setText(item.getItemName());
+
+        final TextView textViewBoughtByUser = (TextView) v.findViewById(R.id.text_view_bought_by_user);
+        TextView textViewBoughtBy = (TextView) v.findViewById(R.id.text_view_bought_by);
+
+        String owner = item.getOwner();
+
         ImageButton trashCanButton = (ImageButton) v.findViewById(R.id.button_remove_item);
         final String itemToRemoveId = this.getRef(position).getKey();
+
+        setItemAppearanceBasedOnBoughtStatus(owner, textViewBoughtByUser, textViewBoughtBy,
+                trashCanButton, textViewItemName, item);
 
         trashCanButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +121,56 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
 
             /* Do the update */
             firebaseRef.updateChildren(updatedItemToAddMap);
+        }
+    }
+
+    /**
+     * If selected item is bought
+     * Set "Bought by" text to "You" if current user is owner of the list
+     * Set "Bought by" text to userName if current user is NOT owner of the list
+     * Set the remove item button invisible if current user is NOT list or item owner
+     */
+    public void setItemAppearanceBasedOnBoughtStatus(String owner, final TextView textViewBoughtByUser, TextView textViewBoughtBy,
+                                                     ImageButton trashCanButton, TextView textViewItemName, ShoppingListItem item) {
+
+        if (item.isBought() && item.getBoughtBy() != null) {
+            textViewBoughtBy.setVisibility(View.VISIBLE);
+            textViewBoughtByUser.setVisibility(View.VISIBLE);
+            trashCanButton.setVisibility(View.INVISIBLE); //Invisible instead of gone, so that layout still take the space
+
+            /* Add a Strike through item name */
+            textViewItemName.setPaintFlags(textViewItemName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+            if (item.getBoughtBy().equals(mEncodedEmail)) {
+                textViewBoughtByUser.setText(mActivity.getString(R.string.text_you));
+            } else {
+                //Get key of current item
+                DatabaseReference itemsRef = FirebaseDatabase.getInstance()
+                        .getReferenceFromUrl(Constants.FIREBASE_URL_USERS).child(item.getBoughtBy());
+
+                itemsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        User user = dataSnapshot.getValue(User.class);
+                        if (user != null) {
+                            textViewBoughtByUser.setText(user.getName());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.e(LOG_TAG, mActivity.getString(R.string.log_error_the_read_failed) + databaseError.getMessage());
+                    }
+                });
+            }
+        } else {
+
+            /* Remove the strike-through */
+            textViewItemName.setPaintFlags(textViewItemName.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+            textViewBoughtBy.setVisibility(View.INVISIBLE);
+            textViewBoughtByUser.setVisibility(View.INVISIBLE);
+            textViewBoughtByUser.setText("");
+            trashCanButton.setVisibility(View.VISIBLE); //Invisible instead of gone, so that layout still take the spac
         }
     }
 }

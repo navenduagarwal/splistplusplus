@@ -3,12 +3,15 @@ package com.example.navendu.shoppinglistplusplus.ui.activeListDetails;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.navendu.shoppinglistplusplus.R;
@@ -16,11 +19,15 @@ import com.example.navendu.shoppinglistplusplus.model.ShoppingList;
 import com.example.navendu.shoppinglistplusplus.model.ShoppingListItem;
 import com.example.navendu.shoppinglistplusplus.ui.BaseActivity;
 import com.example.navendu.shoppinglistplusplus.utils.Constants;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
 
 /**
  * Represents the details screen for the selected shopping list
@@ -33,6 +40,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
     private String mListId;
     private ActiveListItemAdapter mActiveListItemAdapter;
     private ValueEventListener mActiveListRefListener;
+    private Button mButtonShopping;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +60,6 @@ public class ActiveListDetailsActivity extends BaseActivity {
         }
         mActiveListRef = FirebaseDatabase.getInstance()
                 .getReferenceFromUrl(Constants.FIREBASE_URL_ACTIVE_LISTS).child(mListId);
-
-        /**
-         * Link layout elements from XML and setup the toolbar
-         */
-        initializeScreen();
 
         mActiveListRefListener = mActiveListRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -85,14 +88,22 @@ public class ActiveListDetailsActivity extends BaseActivity {
             }
         });
 
+        /**
+         * Link layout elements from XML and setup the toolbar
+         */
+        initializeScreen();
+
+        mButtonShopping.setText(getString(R.string.button_start_shopping));
+        mButtonShopping.setBackgroundColor(ContextCompat.getColor(ActiveListDetailsActivity.this, R.color.primary_dark));
+
 
         /**
-         * Create Firebase references
+         * Create Firebase references to populate items list
          */
         DatabaseReference itemsListRef = FirebaseDatabase.getInstance()
                 .getReferenceFromUrl(Constants.FIREBASE_URL_SHOPPING_LIST_ITEMS).child(mListId);
         mActiveListItemAdapter = new ActiveListItemAdapter(this, ShoppingListItem.class,
-                R.layout.single_active_list_item, itemsListRef, mListId);
+                R.layout.single_active_list_item, itemsListRef, mListId, mEncodedEmail);
 
         /**
          * Set the adapter to the mListView
@@ -100,8 +111,46 @@ public class ActiveListDetailsActivity extends BaseActivity {
         mListView.setAdapter(mActiveListItemAdapter);
 
         /**
-         * Set up click listeners for interaction.
+         * Perform buy/return action on listView item click event if current user is shopping.
          */
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                /* Check the view is not empty footer */
+                if (view.getId() != R.id.list_view_footer_empty) {
+                    final ShoppingListItem selectedListItem = mActiveListItemAdapter.getItem(position);
+                    String itemId = mActiveListItemAdapter.getRef(position).getKey();
+
+                    if (selectedListItem != null) {
+
+                        HashMap<String, Object> updatedItemBoughtData = new HashMap<String, Object>();
+
+                        if (!selectedListItem.isBought()) {
+                            updatedItemBoughtData.put(Constants.FIREBASE_PROPERTY_BOUGHT, true);
+                            updatedItemBoughtData.put(Constants.FIREBASE_PROPERTY_BOUGHT_BY, mEncodedEmail);
+                        } else if (selectedListItem.getBoughtBy().equals(mEncodedEmail)) {
+                            updatedItemBoughtData.put(Constants.FIREBASE_PROPERTY_BOUGHT, false);
+                            updatedItemBoughtData.put(Constants.FIREBASE_PROPERTY_BOUGHT_BY, null);
+                        }
+
+                        /* Get Item Firebase Ref */
+                        DatabaseReference itemRef = FirebaseDatabase.getInstance()
+                                .getReferenceFromUrl(Constants.FIREBASE_URL_SHOPPING_LIST_ITEMS)
+                                .child(mListId).child(itemId);
+                        /* Update Item */
+                        itemRef.updateChildren(updatedItemBoughtData)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (!task.isSuccessful()) {
+                                            Log.d(LOG_TAG, getString(R.string.log_error_updating_data) + task.getException().getMessage());
+                                        }
+                                    }
+                                });
+                    }
+                }
+            }
+        });
 
         /* Show edit list item name dialog on listView item long click event */
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -221,6 +270,8 @@ public class ActiveListDetailsActivity extends BaseActivity {
         /* Inflate the footer, set root layout to null*/
         View footer = getLayoutInflater().inflate(R.layout.footer_empty, null);
         mListView.addFooterView(footer);
+
+        mButtonShopping = (Button) findViewById(R.id.button_shopping);
     }
 
 

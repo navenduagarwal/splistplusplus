@@ -24,6 +24,8 @@ public class Constants {
     public static final String FIREBASE_PROPERTY_ITEM_NAME = "itemName";
     public static final String FIREBASE_PROPERTY_USER_HAS_LOGGED_IN_WITH_PASSWORD = "hasLoggedInWithPassword";
     public static final String FIREBASE_PROPERTY_EMAIL = "email";
+    public static final String FIREBASE_PROPERTY_BOUGHT = "bought";
+    public static final String FIREBASE_PROPERTY_BOUGHT_BY = "boughtBy";
 
     /**
      * Constants for Firebase URL

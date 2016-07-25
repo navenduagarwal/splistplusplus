@@ -25,8 +25,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -39,8 +37,6 @@ public class CreateAccountActivity extends BaseActivity {
     private ProgressDialog mAuthProgressDialog;
     private EditText mEditTextUsernameCreate, mEditTextEmailCreate;
     private String mUserName, mUserEmail, mPassword;
-    private ValueEventListener mActiveUserRefListener;
-    private DatabaseReference userLocation;
     private SecureRandom mRandom;
 
     // [START declare_auth]
@@ -136,7 +132,7 @@ public class CreateAccountActivity extends BaseActivity {
                         mAuthProgressDialog.dismiss();
                         if (!task.isSuccessful()) {
                             /* Error occurred, log the error and dismiss the progress dialog */
-                            Log.d(LOG_TAG, getString(R.string.log_error_occurred) + task.getException());
+                            Log.d(LOG_TAG, getString(R.string.log_error_occurred) + task.getException().getMessage());
                             try {
                                 throw task.getException();
                             } catch (FirebaseAuthInvalidCredentialsException e) {
@@ -158,7 +154,7 @@ public class CreateAccountActivity extends BaseActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (!task.isSuccessful()) {
                                                 Log.d(LOG_TAG, getString(R.string.log_error_occurred) +
-                                                        task.getException());
+                                                        task.getException().getMessage());
                                             } else {
                                                 Log.i(LOG_TAG, getString(R.string.log_message_auth_successful));
                                                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(CreateAccountActivity.this);

@@ -34,7 +34,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
@@ -249,15 +248,15 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.OnCon
                         mAuthProgressDialog.dismiss();
                         if (!task.isSuccessful()) {
                             /* Error occurred, log the error and dismiss the progress dialog */
-                            String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
-                            Log.d(LOG_TAG, getString(R.string.log_error_occurred) + errorCode);
+                            String errorMessage = task.getException().getMessage();
+                            Log.d(LOG_TAG, getString(R.string.log_error_occurred) + errorMessage);
                             try {
                                 throw task.getException();
                             } catch (FirebaseAuthInvalidUserException e) {
                                 mEditTextEmailInput.setError(getString(R.string.error_message_email_issue));
                                 mEditTextEmailInput.requestFocus();
                             } catch (FirebaseAuthInvalidCredentialsException e) {
-                                mEditTextPasswordInput.setError(errorCode);
+                                mEditTextPasswordInput.setError(errorMessage);
                                 mEditTextPasswordInput.requestFocus();
                             } catch (Exception e) {
                                 showErrorToast(e.getMessage());
