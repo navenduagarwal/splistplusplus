@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.navendu.shoppinglistplusplus.R;
+import com.example.navendu.shoppinglistplusplus.model.ShoppingList;
 import com.example.navendu.shoppinglistplusplus.model.ShoppingListItem;
 import com.example.navendu.shoppinglistplusplus.model.User;
 import com.example.navendu.shoppinglistplusplus.utils.Constants;
@@ -31,6 +32,8 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
     private final static String LOG_TAG = ActiveListItemAdapter.class.getSimpleName();
     private String mListId;
     private String mEncodedEmail;
+    private ShoppingList mShoppingList;
+
     /**
      * Public constructor that initializes private instance variables when adapter is created
      *
@@ -42,10 +45,18 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
     public ActiveListItemAdapter(Activity activity, Class<ShoppingListItem> modelClass,
                                  int modelLayout, Query ref, String listId, String encodedEmail) {
         super(activity, modelClass, modelLayout, ref);
-        mListId = listId;
-        mEncodedEmail = encodedEmail;
+        this.mActivity = activity;
+        this.mListId = listId;
+        this.mEncodedEmail = encodedEmail;
     }
 
+    /**
+     * Public method that is used to pass shoppingList object when it is loaded in ValueEventListener
+     */
+    public void setShoppingList(ShoppingList shoppingList) {
+        this.mShoppingList = shoppingList;
+        this.notifyDataSetChanged();
+    }
 
     /**
      * Protected method that populates the view attached to the adapter (list_view_friends_autocomplete)

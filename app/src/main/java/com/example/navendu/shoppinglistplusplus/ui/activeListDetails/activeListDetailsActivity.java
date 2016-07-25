@@ -17,6 +17,7 @@ import android.widget.ListView;
 import com.example.navendu.shoppinglistplusplus.R;
 import com.example.navendu.shoppinglistplusplus.model.ShoppingList;
 import com.example.navendu.shoppinglistplusplus.model.ShoppingListItem;
+import com.example.navendu.shoppinglistplusplus.model.User;
 import com.example.navendu.shoppinglistplusplus.ui.BaseActivity;
 import com.example.navendu.shoppinglistplusplus.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,16 +37,19 @@ public class ActiveListDetailsActivity extends BaseActivity {
     private static final String LOG_TAG = ActiveListDetailsActivity.class.getSimpleName();
     private ListView mListView;
     private ShoppingList mShoppingList;
-    private DatabaseReference mActiveListRef;
+    private DatabaseReference mActiveListRef, mCurrentUserRef;
     private String mListId;
     private ActiveListItemAdapter mActiveListItemAdapter;
-    private ValueEventListener mActiveListRefListener;
+    private ValueEventListener mActiveListRefListener, mCurrentUserRefListener;
     private Button mButtonShopping;
+    private User mCurrentUser;
+    private Boolean mShopping = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active_list_details);
+
         /**
          * Firebase reference
          */
@@ -68,14 +72,20 @@ public class ActiveListDetailsActivity extends BaseActivity {
                 ShoppingList shoppingList = dataSnapshot.getValue(ShoppingList.class);
                 if (shoppingList != null) {
                     mShoppingList = shoppingList;
-                    // detail screen using setTitle and passing in the name of the current
-                    // shopping list. You might want to save this shopping list as well.
-                    // You can but the invalidateOptionsMenu call inside of the same block of code.
-                    // If the shopping list doesn't exist, close the activity using finish()
-
-                    /* Calling invalidateOptionsMenu causes onCreateOptionsMenu to be called */
                     invalidateOptionsMenu();
                     setTitle(shoppingList.getListName());
+                    mActiveListItemAdapter.setShoppingList(mShoppingList);
+                    HashMap<String, User> usersShopping = shoppingList.getUsersShopping();
+                    if (usersShopping != null && usersShopping.size() != 0
+                            && usersShopping.containsKey(mEncodedEmail)) {
+                        mShopping = true;
+                        mButtonShopping.setText(getString(R.string.button_stop_shopping));
+                        mButtonShopping.setBackgroundColor(ContextCompat.getColor(ActiveListDetailsActivity.this, R.color.dark_grey));
+                    } else {
+                        mShopping = false;
+                        mButtonShopping.setText(getString(R.string.button_start_shopping));
+                        mButtonShopping.setBackgroundColor(ContextCompat.getColor(ActiveListDetailsActivity.this, R.color.primary_dark));
+                    }
                 } else {
                     finish();
                 }
@@ -89,19 +99,43 @@ public class ActiveListDetailsActivity extends BaseActivity {
         });
 
         /**
+         * Keep the most upto date version of current user
+         */
+        /*Create Firebase references */
+        mCurrentUserRef = FirebaseDatabase.getInstance()
+                .getReferenceFromUrl(Constants.FIREBASE_URL_USERS).child(mEncodedEmail);
+
+        /**
+         * Adding ValueListener to control get data and visibiliy of elements on UI
+         */
+        mCurrentUserRefListener = mCurrentUserRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                if (user != null) {
+                    mCurrentUser = user;
+                } else {
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(LOG_TAG, R.string.log_error_occurred + databaseError.getMessage());
+            }
+        });
+
+        /**
          * Link layout elements from XML and setup the toolbar
          */
         initializeScreen();
-
-        mButtonShopping.setText(getString(R.string.button_start_shopping));
-        mButtonShopping.setBackgroundColor(ContextCompat.getColor(ActiveListDetailsActivity.this, R.color.primary_dark));
-
 
         /**
          * Create Firebase references to populate items list
          */
         DatabaseReference itemsListRef = FirebaseDatabase.getInstance()
                 .getReferenceFromUrl(Constants.FIREBASE_URL_SHOPPING_LIST_ITEMS).child(mListId);
+
         mActiveListItemAdapter = new ActiveListItemAdapter(this, ShoppingListItem.class,
                 R.layout.single_active_list_item, itemsListRef, mListId, mEncodedEmail);
 
@@ -121,7 +155,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
                     final ShoppingListItem selectedListItem = mActiveListItemAdapter.getItem(position);
                     String itemId = mActiveListItemAdapter.getRef(position).getKey();
 
-                    if (selectedListItem != null) {
+                    if (selectedListItem != null && mShopping) {
 
                         HashMap<String, Object> updatedItemBoughtData = new HashMap<String, Object>();
 
@@ -170,7 +204,6 @@ public class ActiveListDetailsActivity extends BaseActivity {
                 return false;
             }
         });
-
 
     }
 
@@ -253,6 +286,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
         super.onDestroy();
         mActiveListItemAdapter.cleanup();
         mActiveListRef.removeEventListener(mActiveListRefListener);
+        mCurrentUserRef.removeEventListener(mCurrentUserRefListener);
     }
 
     /**
@@ -327,9 +361,20 @@ public class ActiveListDetailsActivity extends BaseActivity {
 
     /**
      * This method is called when user taps "Start/Stop shopping" button
+     * If user is already shopping then remove it, else add it to the list
      */
     public void toggleShopping(View view) {
 
+        DatabaseReference userShoppingListRef = FirebaseDatabase.getInstance()
+                .getReferenceFromUrl(Constants.FIREBASE_URL_ACTIVE_LISTS).child(mListId)
+                .child(Constants.FIREBASE_PROPERTY_USERS_SHOPPING)
+                .child(mEncodedEmail);
+
+        if (mShopping) {
+            userShoppingListRef.removeValue();
+        } else {
+            userShoppingListRef.setValue(mCurrentUser);
+        }
     }
 
 }

@@ -14,6 +14,7 @@ public class ShoppingList {
     private String owner;
     private HashMap<String, Object> timestampLastChanged;
     private HashMap<String, Object> timestampCreated;
+    private HashMap<String, User> usersShopping;
 
     public ShoppingList() {
     }
@@ -25,6 +26,7 @@ public class ShoppingList {
         timestampNowObj.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
         this.timestampLastChanged = timestampNowObj;
         this.timestampCreated = timestampNowObj;
+        this.usersShopping = new HashMap<>();
     }
 
     public String getListName() {
@@ -52,6 +54,10 @@ public class ShoppingList {
     @Exclude
     public long getTimestampCreatedLong() {
         return (long) timestampCreated.get(Constants.FIREBASE_PROPERTY_TIMESTAMP);
+    }
+
+    public HashMap<String, User> getUsersShopping() {
+        return usersShopping;
     }
 
 }
