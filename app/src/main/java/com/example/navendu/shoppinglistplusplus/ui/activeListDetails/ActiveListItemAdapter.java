@@ -66,7 +66,7 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
     protected void populateView(View v, ShoppingListItem item, int position) {
         TextView textViewItemName = (TextView) v.findViewById(R.id.text_view_active_list_item_name);
         textViewItemName.setText(item.getItemName());
-        
+
         final TextView textViewBoughtByUser = (TextView) v.findViewById(R.id.text_view_bought_by_user);
         TextView textViewBoughtBy = (TextView) v.findViewById(R.id.text_view_bought_by);
 
@@ -180,7 +180,15 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
             textViewBoughtBy.setVisibility(View.INVISIBLE);
             textViewBoughtByUser.setVisibility(View.INVISIBLE);
             textViewBoughtByUser.setText("");
+            /**
+             * If you are the owner of the item or the owner of the list, then the remove icon
+             * is visible.
+             */
+            if (owner.equals(mEncodedEmail) || (mShoppingList != null && mShoppingList.getOwner().equals(mEncodedEmail))) {
             trashCanButton.setVisibility(View.VISIBLE); //Invisible instead of gone, so that layout still take the spac
+            } else {
+                trashCanButton.setVisibility(View.INVISIBLE);
+            }
         }
     }
 }
