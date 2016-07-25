@@ -53,10 +53,6 @@ public class ActiveListDetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active_list_details);
 
-        /**
-         * Firebase reference
-         */
-
         /* Get the push ID from the extra passed by ShoppingListFragment */
         Intent intent = this.getIntent();
         mListId = intent.getStringExtra(Constants.KEY_LIST_ID);
@@ -65,6 +61,10 @@ public class ActiveListDetailsActivity extends BaseActivity {
             finish();
             return;
         }
+
+        /**
+         * Firebase reference
+         */
         mActiveListRef = FirebaseDatabase.getInstance()
                 .getReferenceFromUrl(Constants.FIREBASE_URL_ACTIVE_LISTS).child(mListId);
 
@@ -193,16 +193,25 @@ public class ActiveListDetailsActivity extends BaseActivity {
         /* Show edit list item name dialog on listView item long click event */
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
+            /**
+             * If the user is the shopping list's owner or the item's owner,
+             * not shopping on the list and the item is not bought,
+             * then they can edit the item's name.
+             */
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 /* Check that the view is not the empty footer item */
                 if (view.getId() != R.id.list_view_footer_empty) {
                     ShoppingListItem shoppingListItem = mActiveListItemAdapter.getItem(position);
                     if (shoppingListItem != null) {
-                        String itemName = shoppingListItem.getItemName();
-                        String itemId = mActiveListItemAdapter.getRef(position).getKey();
-                        showEditListItemNameDialog(itemName, itemId);
-                        return true;
+                        if ((shoppingListItem.getOwner().equals(mEncodedEmail)
+                                || mShoppingList.getOwner().equals(mEncodedEmail))
+                                && !mShopping && !shoppingListItem.isBought()) {
+                            String itemName = shoppingListItem.getItemName();
+                            String itemId = mActiveListItemAdapter.getRef(position).getKey();
+                            showEditListItemNameDialog(itemName, itemId);
+                            return true;
+                        }
                     }
                 }
                 return false;
@@ -407,7 +416,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
      */
     public void showAddListItemDialog(View view) {
         /* Create an instance of the dialog fragment and show it */
-        DialogFragment dialog = AddListItemDialogFragment.newInstance(mShoppingList, mListId);
+        DialogFragment dialog = AddListItemDialogFragment.newInstance(mShoppingList, mListId, mEncodedEmail);
         dialog.show(getFragmentManager(), "AddListItemDialogFragment");
     }
 
@@ -416,7 +425,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
      */
     public void showEditListNameDialog() {
         /* Create an instance of the dialog fragment and show it */
-        DialogFragment dialog = EditListNameDialogFragment.newInstance(mShoppingList, mListId);
+        DialogFragment dialog = EditListNameDialogFragment.newInstance(mShoppingList, mListId, mEncodedEmail);
         dialog.show(this.getFragmentManager(), "EditListNameDialogFragment");
     }
 
@@ -425,7 +434,8 @@ public class ActiveListDetailsActivity extends BaseActivity {
      */
     public void showEditListItemNameDialog(String itemName, String itemId) {
         /* Create an instance of the dialog fragment and show it */
-        DialogFragment dialog = EditListItemNameDialogFragment.newInstance(mShoppingList, mListId, itemName, itemId);
+        DialogFragment dialog = EditListItemNameDialogFragment.newInstance(mShoppingList, mListId, itemName, itemId,
+                mEncodedEmail);
         dialog.show(this.getFragmentManager(), "EditListItemNameDialogFragment");
     }
 

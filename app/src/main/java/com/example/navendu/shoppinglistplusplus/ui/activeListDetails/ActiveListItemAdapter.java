@@ -66,7 +66,7 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
     protected void populateView(View v, ShoppingListItem item, int position) {
         TextView textViewItemName = (TextView) v.findViewById(R.id.text_view_active_list_item_name);
         textViewItemName.setText(item.getItemName());
-
+        
         final TextView textViewBoughtByUser = (TextView) v.findViewById(R.id.text_view_bought_by_user);
         TextView textViewBoughtBy = (TextView) v.findViewById(R.id.text_view_bought_by);
 
