@@ -29,7 +29,6 @@ import java.util.HashMap;
  * Populates list_view_shopping_list_items inside ActiveListDetailsActivity
  */
 public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem> {
-    private final static String LOG_TAG = ActiveListItemAdapter.class.getSimpleName();
     private String mListId;
     private String mEncodedEmail;
     private ShoppingList mShoppingList;
@@ -170,7 +169,7 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        Log.e(LOG_TAG, mActivity.getString(R.string.log_error_the_read_failed) + databaseError.getMessage());
+                        Log.e(mActivity.getClass().getSimpleName(), mActivity.getString(R.string.log_error_the_read_failed) + databaseError.getMessage());
                     }
                 });
             }

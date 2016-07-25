@@ -347,6 +347,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
                     default:
                         currentShoppersText = String.format(getString(R.string.text_you_and_number_are_shopping),
                                 usersWhoAreNotYou.size());
+                        break;
                 }
             }
             /**

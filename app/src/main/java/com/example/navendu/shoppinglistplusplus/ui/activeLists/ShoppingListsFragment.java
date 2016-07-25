@@ -25,6 +25,7 @@ public class ShoppingListsFragment extends Fragment {
     private static String LOG_TAG = ShoppingListsFragment.class.getSimpleName();
     private ListView mListView;
     private ActiveListAdapter mActiveListAdapter;
+    private String mEncodedEmail;
 
     public ShoppingListsFragment() {
         /* Required empty public constructor */
@@ -34,9 +35,10 @@ public class ShoppingListsFragment extends Fragment {
      * Create fragment and pass bundle with data as it's arguments
      * Right now there are not arguments...but eventually there will be.
      */
-    public static ShoppingListsFragment newInstance() {
+    public static ShoppingListsFragment newInstance(String encodedEmail) {
         ShoppingListsFragment fragment = new ShoppingListsFragment();
         Bundle args = new Bundle();
+        args.putString(Constants.KEY_ENCODED_EMAIL, encodedEmail);
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,6 +56,7 @@ public class ShoppingListsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            mEncodedEmail = getArguments().getString(Constants.KEY_ENCODED_EMAIL);
         }
     }
 
@@ -72,7 +75,7 @@ public class ShoppingListsFragment extends Fragment {
         DatabaseReference activeListsRef = FirebaseDatabase.getInstance()
                 .getReferenceFromUrl(Constants.FIREBASE_URL_ACTIVE_LISTS);
         mActiveListAdapter = new ActiveListAdapter(getActivity(), ShoppingList.class,
-                R.layout.single_active_list, activeListsRef);
+                R.layout.single_active_list, activeListsRef, mEncodedEmail);
 
         /**
          * Set the adapter to the mListView
