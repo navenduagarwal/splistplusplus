@@ -147,6 +147,27 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.OnCon
     @Override
     protected void onResume() {
         super.onResume();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor spe = preferences.edit();
+
+        /**
+         * Get the newly registered user email if present, use null as default value
+         */
+
+        String signupEmail = preferences.getString(Constants.KEY_SIGNUP_EMAIL, null);
+
+        /**
+         * fill in the email editText and remove value from SharedPreferences if email is present
+         */
+
+        if (signupEmail != null) {
+            mEditTextEmailInput.setText(signupEmail);
+
+            /**
+             * Clear signupEmail sharedPreferences to make sure that they are used just once
+             */
+            spe.putString(Constants.KEY_SIGNUP_EMAIL, null).apply();
+        }
     }
 
     @Override

@@ -2,7 +2,9 @@ package com.example.navendu.shoppinglistplusplus.ui.login;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
@@ -15,7 +17,7 @@ import android.widget.Toast;
 
 import com.example.navendu.shoppinglistplusplus.R;
 import com.example.navendu.shoppinglistplusplus.ui.BaseActivity;
-import com.example.navendu.shoppinglistplusplus.ui.MainActivity;
+import com.example.navendu.shoppinglistplusplus.utils.Constants;
 import com.example.navendu.shoppinglistplusplus.utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,9 +25,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+
+import java.math.BigInteger;
+import java.security.SecureRandom;
 
 /**
  * Represents Signup Screen and functionality of the app
@@ -33,10 +37,12 @@ import com.google.firebase.database.ValueEventListener;
 public class CreateAccountActivity extends BaseActivity {
     private static final String LOG_TAG = CreateAccountActivity.class.getSimpleName();
     private ProgressDialog mAuthProgressDialog;
-    private EditText mEditTextUsernameCreate, mEditTextEmailCreate, mEditTextPasswordCreate;
+    private EditText mEditTextUsernameCreate, mEditTextEmailCreate;
     private String mUserName, mUserEmail, mPassword;
     private ValueEventListener mActiveUserRefListener;
     private DatabaseReference userLocation;
+    private SecureRandom mRandom;
+
     // [START declare_auth]
     private FirebaseAuth mAuth;
     // [END declare_auth]
@@ -55,6 +61,7 @@ public class CreateAccountActivity extends BaseActivity {
         // [START initialize_auth]
         mAuth = FirebaseAuth.getInstance();
         // [END initialize_auth]
+        mRandom = new SecureRandom();
     }
 
     /**
@@ -74,14 +81,13 @@ public class CreateAccountActivity extends BaseActivity {
     public void initializeScreen() {
         mEditTextUsernameCreate = (EditText) findViewById(R.id.edit_text_username_create);
         mEditTextEmailCreate = (EditText) findViewById(R.id.edit_text_email_create);
-        mEditTextPasswordCreate = (EditText) findViewById(R.id.edit_text_password_create);
         LinearLayout linearLayoutCreateAccountActivity = (LinearLayout) findViewById(R.id.linear_layout_create_account_activity);
         initializeBackground(linearLayoutCreateAccountActivity);
 
         /* Setup the progress dialog that is displayed later when authenticating with Firebase */
         mAuthProgressDialog = new ProgressDialog(this);
         mAuthProgressDialog.setTitle(getResources().getString(R.string.progress_dialog_loading));
-        mAuthProgressDialog.setMessage(getResources().getString(R.string.progress_dialog_creating_user_with_firebase));
+        mAuthProgressDialog.setMessage(getResources().getString(R.string.progress_dialog_check_inbox));
         mAuthProgressDialog.setCancelable(false);
     }
 
@@ -102,14 +108,13 @@ public class CreateAccountActivity extends BaseActivity {
 
         mUserName = mEditTextUsernameCreate.getText().toString();
         mUserEmail = mEditTextEmailCreate.getText().toString();
-        mPassword = mEditTextPasswordCreate.getText().toString();
+        mPassword = new BigInteger(130, mRandom).toString(32);
 
         /* validation on text fields */
         boolean validUserName = isUserNameValid(mUserName);
         boolean validUserEmail = isEmailValid(mUserEmail);
-        boolean validPassword = isPasswordValid(mPassword);
 
-        if (!validPassword || !validUserEmail || !validUserName) {
+        if (!validUserEmail || !validUserName) {
             return;
         }
 
@@ -134,9 +139,6 @@ public class CreateAccountActivity extends BaseActivity {
                             Log.d(LOG_TAG, getString(R.string.log_error_occurred) + task.getException());
                             try {
                                 throw task.getException();
-                            } catch (FirebaseAuthWeakPasswordException e) {
-                                mEditTextPasswordCreate.setError(getString(R.string.error_invalid_password_not_valid));
-                                mEditTextPasswordCreate.requestFocus();
                             } catch (FirebaseAuthInvalidCredentialsException e) {
                                 mEditTextEmailCreate.setError(getString(R.string.error_invalid_email_not_valid));
                                 mEditTextEmailCreate.requestFocus();
@@ -149,11 +151,42 @@ public class CreateAccountActivity extends BaseActivity {
                             }
 
                         } else {
-                            Log.i(LOG_TAG, getString(R.string.log_message_auth_successful));
-                            String uid = task.getResult().getUser().getUid();
-                            Utils.createUserInFirebaseHelper(mUserEmail,mUserName);
-                            Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
-                            startActivity(intent);
+                            //Email Reset Start
+                            mAuth.sendPasswordResetEmail(mUserEmail)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (!task.isSuccessful()) {
+                                                Log.d(LOG_TAG, getString(R.string.log_error_occurred) +
+                                                        task.getException());
+                                            } else {
+                                                Log.i(LOG_TAG, getString(R.string.log_message_auth_successful));
+                                                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(CreateAccountActivity.this);
+                                                SharedPreferences.Editor spe = preferences.edit();
+                                                /**
+                                                 * Save name and email to sharedPreferences to create User database record
+                                                 *  when the registered user will sign in for the first time
+                                                 */
+                                                spe.putString(Constants.KEY_SIGNUP_EMAIL, mUserEmail).apply();
+                                                Utils.createUserInFirebaseHelper(mUserEmail, mUserName);
+
+                                                /**
+                                                 * Password reset email sent, open app chooser to pick app
+                                                 * for handling inbox email intent
+                                                 */
+                                                mAuth.signOut();
+                                                Intent intent = new Intent(Intent.ACTION_MAIN);
+                                                intent.addCategory(Intent.CATEGORY_APP_EMAIL);
+                                                try {
+                                                    startActivity(intent);
+                                                    finish();
+                                                } catch (android.content.ActivityNotFoundException ex) {
+                                                    Log.e(LOG_TAG, "Email Application not found:" + ex.getMessage());
+                                                }
+                                            }
+                                        }
+                                    });
+                            //Email Reset Ends
                         }
                     }
                 });
@@ -191,18 +224,11 @@ public class CreateAccountActivity extends BaseActivity {
         return true;
     }
 
-    private boolean isPasswordValid(String password) {
-        if (password.length() < 6) {
-            mEditTextPasswordCreate.setError(getResources().getString(R.string.error_invalid_password_not_valid));
-            return false;
-        }
-        return true;
-    }
-
     /**
      * Show error toast to users
      */
     private void showErrorToast(String message) {
         Toast.makeText(CreateAccountActivity.this, message, Toast.LENGTH_LONG).show();
     }
+
 }

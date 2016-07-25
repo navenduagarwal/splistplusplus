@@ -13,6 +13,7 @@ public class Constants {
      */
     public static final String FIREBASE_LOCATION_ACTIVE_LISTS = "activeLists";
     public static final String FIREBASE_LOCATION_SHOPPING_LIST_ITEMS = "shoppingListItems";
+    public static final String FIREBASE_LOCATION_USERS = "users";
 
     /**
      * Constants for Firebase object properties
@@ -21,7 +22,8 @@ public class Constants {
     public static final String FIREBASE_PROPERTY_TIMESTAMP = "timestamp";
     public static final String FIREBASE_PROPERTY_TIMESTAMP_LAST_CHANGED = "timestampLastChanged";
     public static final String FIREBASE_PROPERTY_ITEM_NAME = "itemName";
-    public static final String FIREBASE_LOCATION_USERS = "users";
+    public static final String FIREBASE_PROPERTY_USER_HAS_LOGGED_IN_WITH_PASSWORD = "hasLoggedInWithPassword";
+    public static final String FIREBASE_PROPERTY_EMAIL = "email";
 
     /**
      * Constants for Firebase URL
@@ -42,7 +44,7 @@ public class Constants {
     public static final String KEY_ENCODED_EMAIL = "ENCODED_EMAIL";
     public static final String KEY_PROVIDER_ID = "PROVIDER_ID";
     public static final String KEY_LIST_OWNER = "LIST_OWNER";
-
+    public static final String KEY_SIGNUP_EMAIL = "SIGNUP_EMAIL";
 
     /**
      * Constants for Firebase login

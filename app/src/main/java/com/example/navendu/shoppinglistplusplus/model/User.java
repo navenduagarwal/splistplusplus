@@ -13,6 +13,7 @@ public class User {
     private String email;
     private String name;
     private HashMap<String, Object> timestampJoined;
+    private boolean hasLoggedInWithPassword;
 
     public User() {
     }
@@ -23,6 +24,7 @@ public class User {
         HashMap<String, Object> timestampNowObj = new HashMap<>();
         timestampNowObj.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
         this.timestampJoined = timestampNowObj;
+        this.hasLoggedInWithPassword = false;
     }
 
     public String getEmail() {
@@ -35,6 +37,10 @@ public class User {
 
     public HashMap<String, Object> getTimestampJoined() {
         return timestampJoined;
+    }
+
+    public boolean isHasLoggedInWithPassword() {
+        return hasLoggedInWithPassword;
     }
 
     @Exclude
