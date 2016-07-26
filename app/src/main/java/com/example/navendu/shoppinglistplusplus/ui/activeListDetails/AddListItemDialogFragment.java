@@ -7,10 +7,10 @@ import com.example.navendu.shoppinglistplusplus.R;
 import com.example.navendu.shoppinglistplusplus.model.ShoppingList;
 import com.example.navendu.shoppinglistplusplus.model.ShoppingListItem;
 import com.example.navendu.shoppinglistplusplus.utils.Constants;
+import com.example.navendu.shoppinglistplusplus.utils.Utils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -78,13 +78,8 @@ public class AddListItemDialogFragment extends EditListDialogFragment {
             updatedItemToAddMap.put("/" + Constants.FIREBASE_LOCATION_SHOPPING_LIST_ITEMS + "/" + mListId
                     + "/" + itemId, itemToAdd);
 
-            /* Make timestamp for last changed */
-            HashMap<String, Object> changedTimestampMap = new HashMap<>();
-            changedTimestampMap.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
-
-            /* Add the updated timestamp */
-            updatedItemToAddMap.put("/" + Constants.FIREBASE_LOCATION_ACTIVE_LISTS + "/" + mListId
-                    + "/" + Constants.FIREBASE_PROPERTY_TIMESTAMP_LAST_CHANGED, changedTimestampMap);
+            /* Update Affected lists timestamp */
+            Utils.updateMapWithTimestampLastChanged(mListId, mOwner, updatedItemToAddMap);
 
             /* Do the update */
             firebaseRef.updateChildren(updatedItemToAddMap);

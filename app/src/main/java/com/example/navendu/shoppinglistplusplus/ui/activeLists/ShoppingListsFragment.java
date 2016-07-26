@@ -1,7 +1,9 @@
 package com.example.navendu.shoppinglistplusplus.ui.activeLists;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import com.example.navendu.shoppinglistplusplus.ui.activeListDetails.ActiveListD
 import com.example.navendu.shoppinglistplusplus.utils.Constants;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 /**
  * A simple {@link Fragment} subclass that shows a list of all shopping lists a user can see.
@@ -70,19 +73,6 @@ public class ShoppingListsFragment extends Fragment {
         initializeScreen(rootView);
 
         /**
-         * Create Firebase references
-         */
-        DatabaseReference activeListsRef = FirebaseDatabase.getInstance()
-                .getReferenceFromUrl(Constants.FIREBASE_URL_ACTIVE_LISTS);
-        mActiveListAdapter = new ActiveListAdapter(getActivity(), ShoppingList.class,
-                R.layout.single_active_list, activeListsRef, mEncodedEmail);
-
-        /**
-         * Set the adapter to the mListView
-         */
-        mListView.setAdapter(mActiveListAdapter);
-
-        /**
          * Set interactive bits, such as click events and adapters
          */
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -106,13 +96,50 @@ public class ShoppingListsFragment extends Fragment {
         return rootView;
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String sortOrder = sharedPreferences.getString(Constants.KEY_PREF_SORT_ORDER_LISTS, Constants.ORDER_BY_KEY);
+
+        Query orderedActiveuserListref;
+
+        /**
+         * Create Firebase references
+         */
+        DatabaseReference activeListsRef = FirebaseDatabase.getInstance()
+                .getReferenceFromUrl(Constants.FIREBASE_URL_USER_LISTS).child(mEncodedEmail);
+
+        /**
+         * Sort active lists by "date created"
+         * if it's been selected in the SettingsActivity
+         */
+        if (sortOrder.equals(Constants.ORDER_BY_KEY)) {
+            orderedActiveuserListref = activeListsRef.orderByKey();
+
+        } else {
+            orderedActiveuserListref = activeListsRef.orderByChild(sortOrder);
+        }
+
+        mActiveListAdapter = new ActiveListAdapter(getActivity(), ShoppingList.class,
+                R.layout.single_active_list, orderedActiveuserListref, mEncodedEmail);
+
+        /**
+         * Set the adapter to the mListView
+         */
+        mListView.setAdapter(mActiveListAdapter);
+
+    }
+
     /**
      * Cleanup the adapter when activity is destroyed.
      */
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onPause() {
+        super.onPause();
         mActiveListAdapter.cleanup();
     }
 

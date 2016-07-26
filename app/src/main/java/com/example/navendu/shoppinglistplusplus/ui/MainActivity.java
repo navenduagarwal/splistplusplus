@@ -1,6 +1,7 @@
 package com.example.navendu.shoppinglistplusplus.ui;
 
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -90,6 +91,10 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        if (id == R.id.action_sort) {
+            startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

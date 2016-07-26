@@ -14,13 +14,13 @@ import com.example.navendu.shoppinglistplusplus.model.ShoppingList;
 import com.example.navendu.shoppinglistplusplus.model.ShoppingListItem;
 import com.example.navendu.shoppinglistplusplus.model.User;
 import com.example.navendu.shoppinglistplusplus.utils.Constants;
+import com.example.navendu.shoppinglistplusplus.utils.Utils;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
@@ -65,11 +65,15 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
     @Override
     protected void populateView(View v, ShoppingListItem item, int position) {
         TextView textViewItemName = (TextView) v.findViewById(R.id.text_view_active_list_item_name);
+        final TextView textViewBoughtByUser = (TextView) v.findViewById(R.id.text_view_bought_by_user);
+        TextView textViewBoughtBy = (TextView) v.findViewById(R.id.text_view_bought_by);
+        ImageButton trashCanButton = (ImageButton) v.findViewById(R.id.button_remove_item);
+        final TextView textViewItemCreatedBy = (TextView) v.findViewById(R.id.text_view_created_by_user);
+
         textViewItemName.setText(item.getItemName());
 
         String owner = item.getOwner();
 
-        final TextView textViewItemCreatedBy = (TextView) v.findViewById(R.id.text_view_created_by_user);
         /**
          * Updating Created By Text
          */
@@ -97,10 +101,6 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
             }
         }
 
-        final TextView textViewBoughtByUser = (TextView) v.findViewById(R.id.text_view_bought_by_user);
-        TextView textViewBoughtBy = (TextView) v.findViewById(R.id.text_view_bought_by);
-
-        ImageButton trashCanButton = (ImageButton) v.findViewById(R.id.button_remove_item);
         final String itemToRemoveId = this.getRef(position).getKey();
 
         setItemAppearanceBasedOnBoughtStatus(owner, textViewBoughtByUser, textViewBoughtBy,
@@ -139,26 +139,21 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
             DatabaseReference firebaseRef = FirebaseDatabase.getInstance()
                     .getReferenceFromUrl(Constants.FIREBASE_URL);
 
-            HashMap<String, Object> updatedItemToAddMap = new HashMap<>();
+            HashMap<String, Object> updateRemoveItemMap = new HashMap<>();
 
             //Get key of current item
             DatabaseReference itemsRef = FirebaseDatabase.getInstance()
                     .getReferenceFromUrl(Constants.FIREBASE_URL_SHOPPING_LIST_ITEMS).child(mListId);
 
-            /* Add the item to the update map */
-            updatedItemToAddMap.put("/" + Constants.FIREBASE_LOCATION_SHOPPING_LIST_ITEMS + "/" + mListId
+            /* Remove the item by passing null */
+            updateRemoveItemMap.put("/" + Constants.FIREBASE_LOCATION_SHOPPING_LIST_ITEMS + "/" + mListId
                     + "/" + itemId, null);
 
-            /* Make timestamp for last changed */
-            HashMap<String, Object> changedTimestampMap = new HashMap<>();
-            changedTimestampMap.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
-
-            /* Add the updated timestamp */
-            updatedItemToAddMap.put("/" + Constants.FIREBASE_LOCATION_ACTIVE_LISTS + "/" + mListId
-                    + "/" + Constants.FIREBASE_PROPERTY_TIMESTAMP_LAST_CHANGED, changedTimestampMap);
+            /* Add updated timeStamp */
+            Utils.updateMapWithTimestampLastChanged(mListId, mShoppingList.getOwner(), updateRemoveItemMap);
 
             /* Do the update */
-            firebaseRef.updateChildren(updatedItemToAddMap);
+            firebaseRef.updateChildren(updateRemoveItemMap);
         }
     }
 
