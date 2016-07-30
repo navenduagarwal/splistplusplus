@@ -46,12 +46,6 @@ public class ShoppingListsFragment extends Fragment {
         return fragment;
     }
 
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
     /**
      * Initialize instance variables with data from bundle
      */
@@ -67,7 +61,7 @@ public class ShoppingListsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         /**
-         * Initalize UI elements
+         * Initialize UI elements
          */
         View rootView = inflater.inflate(R.layout.fragment_shopping_lists, container, false);
         initializeScreen(rootView);
@@ -75,6 +69,36 @@ public class ShoppingListsFragment extends Fragment {
         /**
          * Set interactive bits, such as click events and adapters
          */
+
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String sortOrder = sharedPreferences.getString(Constants.KEY_PREF_SORT_ORDER_LISTS, Constants.ORDER_BY_KEY);
+
+        Query orderedActiveUserListsRef;
+
+        /**
+         * Create Firebase references
+         */
+        DatabaseReference activeListsRef = FirebaseDatabase.getInstance()
+                .getReferenceFromUrl(Constants.FIREBASE_URL_USER_LISTS).child(mEncodedEmail);
+        /**
+         * Sort active lists by "date created"
+         * if it's been selected in the SettingsActivity
+         */
+        if (sortOrder.equals(Constants.ORDER_BY_KEY)) {
+            orderedActiveUserListsRef = activeListsRef.orderByKey();
+
+        } else {
+            orderedActiveUserListsRef = activeListsRef.orderByChild(sortOrder);
+        }
+
+        mActiveListAdapter = new ActiveListAdapter(getActivity(), ShoppingList.class,
+                R.layout.single_active_list, orderedActiveUserListsRef, mEncodedEmail);
+
+        /**
+         * Set the adapter to the mListView
+         */
+        mListView.setAdapter(mActiveListAdapter);
+
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -100,41 +124,11 @@ public class ShoppingListsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String sortOrder = sharedPreferences.getString(Constants.KEY_PREF_SORT_ORDER_LISTS, Constants.ORDER_BY_KEY);
-
-        Query orderedActiveuserListref;
-
-        /**
-         * Create Firebase references
-         */
-        DatabaseReference activeListsRef = FirebaseDatabase.getInstance()
-                .getReferenceFromUrl(Constants.FIREBASE_URL_USER_LISTS).child(mEncodedEmail);
-
-        /**
-         * Sort active lists by "date created"
-         * if it's been selected in the SettingsActivity
-         */
-        if (sortOrder.equals(Constants.ORDER_BY_KEY)) {
-            orderedActiveuserListref = activeListsRef.orderByKey();
-
-        } else {
-            orderedActiveuserListref = activeListsRef.orderByChild(sortOrder);
-        }
-
-        mActiveListAdapter = new ActiveListAdapter(getActivity(), ShoppingList.class,
-                R.layout.single_active_list, orderedActiveuserListref, mEncodedEmail);
-
-        /**
-         * Set the adapter to the mListView
-         */
-        mListView.setAdapter(mActiveListAdapter);
-
+        mActiveListAdapter.notifyDataSetChanged();
     }
 
     /**
-     * Cleanup the adapter when activity is destroyed.
+     * Cleanup the adapter when activity is paused.
      */
 
     @Override

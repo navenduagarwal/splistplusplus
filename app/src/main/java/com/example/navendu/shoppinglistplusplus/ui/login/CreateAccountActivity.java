@@ -49,15 +49,15 @@ public class CreateAccountActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
-        /**
-         * Link layout elements from XML and setup the progress dialog
-         */
-        initializeScreen();
-
         // [START initialize_auth]
         mAuth = FirebaseAuth.getInstance();
         // [END initialize_auth]
         mRandom = new SecureRandom();
+
+        /**
+         * Link layout elements from XML and setup the progress dialog
+         */
+        initializeScreen();
     }
 
     /**
@@ -103,7 +103,7 @@ public class CreateAccountActivity extends BaseActivity {
     public void onCreateAccountPressed(View view) {
 
         mUserName = mEditTextUsernameCreate.getText().toString();
-        mUserEmail = mEditTextEmailCreate.getText().toString();
+        mUserEmail = mEditTextEmailCreate.getText().toString().toLowerCase();
         mPassword = new BigInteger(130, mRandom).toString(32);
 
         /* validation on text fields */
@@ -129,10 +129,10 @@ public class CreateAccountActivity extends BaseActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        mAuthProgressDialog.dismiss();
                         if (!task.isSuccessful()) {
                             /* Error occurred, log the error and dismiss the progress dialog */
                             Log.d(LOG_TAG, getString(R.string.log_error_occurred) + task.getException().getMessage());
+                            mAuthProgressDialog.dismiss();
                             try {
                                 throw task.getException();
                             } catch (FirebaseAuthInvalidCredentialsException e) {
@@ -155,7 +155,9 @@ public class CreateAccountActivity extends BaseActivity {
                                             if (!task.isSuccessful()) {
                                                 Log.d(LOG_TAG, getString(R.string.log_error_occurred) +
                                                         task.getException().getMessage());
+                                                mAuthProgressDialog.dismiss();
                                             } else {
+                                                mAuthProgressDialog.dismiss();
                                                 Log.i(LOG_TAG, getString(R.string.log_message_auth_successful));
                                                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(CreateAccountActivity.this);
                                                 SharedPreferences.Editor spe = preferences.edit();

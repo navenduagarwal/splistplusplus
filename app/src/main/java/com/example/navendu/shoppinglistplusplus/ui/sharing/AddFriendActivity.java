@@ -6,7 +6,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.navendu.shoppinglistplusplus.R;
+import com.example.navendu.shoppinglistplusplus.model.User;
 import com.example.navendu.shoppinglistplusplus.ui.BaseActivity;
+import com.example.navendu.shoppinglistplusplus.utils.Constants;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * Represents the Add Friend screen and functionality
@@ -14,6 +18,8 @@ import com.example.navendu.shoppinglistplusplus.ui.BaseActivity;
 public class AddFriendActivity extends BaseActivity {
     private EditText mEditTextAddFriendEmail;
     private ListView mListViewAutocomplete;
+    private AutocompleteFriendAdapter mFriendsAutocompleteAdapter;
+    private DatabaseReference mUsersRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +30,13 @@ public class AddFriendActivity extends BaseActivity {
          * Link layout elements from XML and setup the toolbar
          */
         initializeScreen();
+
+        mUsersRef = FirebaseDatabase.getInstance()
+                .getReferenceFromUrl(Constants.FIREBASE_URL_USERS);
+        mFriendsAutocompleteAdapter = new AutocompleteFriendAdapter(this, User.class,
+                R.layout.single_autocomplete_item, mUsersRef.orderByChild(Constants.FIREBASE_PROPERTY_EMAIL)
+                , mEncodedEmail);
+        mListViewAutocomplete.setAdapter(mFriendsAutocompleteAdapter);
 
         /**
          * Set interactive bits, such as click events/adapters
@@ -44,6 +57,7 @@ public class AddFriendActivity extends BaseActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mFriendsAutocompleteAdapter.cleanup();
     }
 
     /**

@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.example.navendu.shoppinglistplusplus.R;
 import com.example.navendu.shoppinglistplusplus.model.ShoppingList;
+import com.example.navendu.shoppinglistplusplus.model.User;
 import com.example.navendu.shoppinglistplusplus.utils.Constants;
 import com.example.navendu.shoppinglistplusplus.utils.Utils;
 import com.google.firebase.database.DatabaseReference;
@@ -23,10 +24,11 @@ public class EditListItemNameDialogFragment extends EditListDialogFragment {
      * Public static constructor that creates fragment and passes a bundle with data into it when adapter is created
      */
     public static EditListItemNameDialogFragment newInstance(ShoppingList shoppingList, String listId,
-                                                             String itemName, String itemId, String enCodedEmail) {
+                                                             String itemName, String itemId
+            , String encodedEmail, HashMap<String, User> sharedWithUsers) {
         EditListItemNameDialogFragment editListItemNameDialogFragment = new EditListItemNameDialogFragment();
         Bundle bundle = EditListDialogFragment.newInstanceHelper(shoppingList, R.layout.dialog_edit_item,
-                listId, enCodedEmail);
+                listId, encodedEmail, sharedWithUsers);
         bundle.putString(Constants.KEY_LIST_ITEM_NAME, itemName);
         bundle.putString(Constants.KEY_LIST_ITEM_ID, itemId);
         editListItemNameDialogFragment.setArguments(bundle);
@@ -77,7 +79,7 @@ public class EditListItemNameDialogFragment extends EditListDialogFragment {
                     + "/" + mItemId + "/" + Constants.FIREBASE_PROPERTY_ITEM_NAME, inputItemName);
 
             /* updated timestamp in all lists*/
-            Utils.updateMapWithTimestampLastChanged(mListId, mOwner, updatedDataItemToEditMap);
+            Utils.updateMapWithTimestampLastChanged(mSharedWith, mListId, mOwner, updatedDataItemToEditMap);
 
             /* Do the update */
             firebaseRef.updateChildren(updatedDataItemToEditMap);

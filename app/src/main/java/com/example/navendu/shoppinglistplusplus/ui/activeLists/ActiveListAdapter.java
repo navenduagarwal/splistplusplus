@@ -37,41 +37,14 @@ public class ActiveListAdapter extends FirebaseListAdapter<ShoppingList> {
      */
 
     @Override
-    protected void populateView(View v, ShoppingList model, int position) {
-        TextView mTextViewListName = (TextView) v.findViewById(R.id.text_view_list_name);
+    protected void populateView(View v, ShoppingList model, final int position) {
+        final TextView mTextViewListName = (TextView) v.findViewById(R.id.text_view_list_name);
         final TextView mTextViewListCreatedBy = (TextView) v.findViewById(R.id.text_view_created_by_user);
         final TextView mTextViewPeopleShopping = (TextView) v.findViewById(R.id.text_view_people_shopping_count);
-        String ownerEmail = model.getOwner();
+        final String ownerEmail = model.getOwner();
         mTextViewListName.setText(model.getListName());
-        mTextViewListCreatedBy.setText(model.getOwner());
-
-        /**
-         * Updating Created By Text
-         */
-        if (ownerEmail != null) {
-            if (mEncodedEmail.equals(ownerEmail)) {
-                mTextViewListCreatedBy.setText(mActivity.getString(R.string.text_you));
-            } else {
-                DatabaseReference ownersRef = FirebaseDatabase.getInstance()
-                        .getReferenceFromUrl(Constants.FIREBASE_URL_USERS).child(ownerEmail);
-                /* Get Owners name */
-                ownersRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        User owner = dataSnapshot.getValue(User.class);
-                        if (owner != null) {
-                            mTextViewListCreatedBy.setText(owner.getName());
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.d(mActivity.getClass().getSimpleName(), mActivity.getString(R.string.log_error_the_read_failed) + databaseError.getMessage());
-                    }
-                });
-            }
-        }
-
+        mTextViewListCreatedBy.setText("");
+        Log.d("Test Owner", model.getListName() + model.getOwner());
         /**
          * Updating Number of Current Shopper's List
          * Show "1 person is shopping" if one person is shopping
@@ -95,6 +68,40 @@ public class ActiveListAdapter extends FirebaseListAdapter<ShoppingList> {
         } else {
             /* otherwise show nothing */
             mTextViewPeopleShopping.setText("");
+        }
+
+
+        /**
+         * Updating Created By Text
+         */
+        if (ownerEmail != null) {
+            if (mEncodedEmail.equals(ownerEmail)) {
+                mTextViewListCreatedBy.setText(mActivity.getResources().getString(R.string.text_you));
+//                Log.d("Test Owner", 1 + mTextViewListName.getText().toString()+" " +
+//                        mTextViewListCreatedBy.getText().toString() + " "+ownerEmail + " "+mEncodedEmail);
+            } else {
+                DatabaseReference ownersRef = FirebaseDatabase.getInstance()
+                        .getReferenceFromUrl(Constants.FIREBASE_URL_USERS).child(ownerEmail);
+                /* Get Owners name */
+                ownersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        User owner = dataSnapshot.getValue(User.class);
+                        if (owner != null && !owner.getEmail().equals(mEncodedEmail)) {
+                            mTextViewListCreatedBy.setText(owner.getName());
+//                            Log.d("Test Owner", 2 + mTextViewListName.getText().toString()+" " +
+//                                    mTextViewListCreatedBy.getText().toString() + " "+ownerEmail + " "+mEncodedEmail);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.e(mActivity.getClass().getSimpleName(), mActivity.getString(R.string.log_error_the_read_failed) + databaseError.getMessage());
+                    }
+                });
+            }
+        } else {
+            mTextViewListName.setText("");
         }
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.navendu.shoppinglistplusplus.R;
+import com.example.navendu.shoppinglistplusplus.model.ShoppingList;
 import com.example.navendu.shoppinglistplusplus.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,8 +35,84 @@ public class Utils {
         mContext = con;
     }
 
+    /**
+     * Return true if currentUserEmail equals to shoppingList.owner()
+     * Return false otherwise
+     */
+    public static boolean checkIfOwner(ShoppingList shoppingList, String currentUserEmail) {
+        return (shoppingList.getOwner() != null &&
+                shoppingList.getOwner().equals(currentUserEmail));
+    }
+
+    /**
+     * Encode user email to use it as a Firebase key (Firebase does not allow "." in the key name)
+     * Encoded email is also used as "userEmail", list and item "owner" value
+     */
     public static String encodeEmail(String userEmail) {
         return userEmail.replace(".", ",");
+    }
+
+    public static String decodeEmail(String userEmail) {
+        return userEmail.replace(",", ".");
+    }
+
+    /**
+     * Adds values to a pre-existing HashMap for updating a property for all of the ShoppingList copies.
+     * The HashMap can then be used with updateChildren to update the property
+     * for all ShoppingList copies.
+     * @param sharedWith            The list of users the shopping list that has been updated is shared with.
+     * @param listId           The id of the shopping list.
+     * @param owner            The owner of the shopping list.
+     * @param mapToUpdate      The map containing the key, value pairs which will be used
+     *                         to update the Firebase database. This MUST be a Hashmap of key
+     *                         value pairs who's urls are absolute (i.e. from the root node)
+     * @param propertyToUpdate The property to update
+     * @param valueToUpdate    The value to update
+     * @return The updated HashMap with the new value inserted in all lists
+     */
+    public static HashMap<String, Object> updateMapForAllWithValue(
+            final HashMap<String, User> sharedWith,
+            final String listId,
+            final String owner,
+            HashMap<String, Object> mapToUpdate,
+            String propertyToUpdate,
+            Object valueToUpdate) {
+        mapToUpdate.put("/" + Constants.FIREBASE_LOCATION_USER_LISTS + "/" + owner + "/"
+                + listId + "/" + propertyToUpdate, valueToUpdate);
+        if (sharedWith != null) {
+            for (User user : sharedWith.values()) {
+                mapToUpdate.put("/" + Constants.FIREBASE_LOCATION_USER_LISTS + "/" + user.getEmail() + "/"
+                        + listId + "/" + propertyToUpdate, valueToUpdate);
+            }
+        }
+        return mapToUpdate;
+    }
+
+    /**
+     * Adds values to a pre-existing HashMap for updating all Last Changed Timestamps for all of
+     * the ShoppingList copies. This method uses {@link #updateMapForAllWithValue} to update the
+     * last changed timestamp for all ShoppingList copies.
+     *
+     * @param sharedWith            The list of users the shopping list that has been updated is shared with.
+     * @param listId               The id of the shopping list.
+     * @param owner                The owner of the shopping list.
+     * @param mapToAddDateToUpdate The map containing the key, value pairs which will be used
+     *                             to update the Firebase database. This MUST be a Hashmap of key
+     *                             value pairs who's urls are absolute (i.e. from the root node)
+     * @return
+     */
+    public static HashMap<String, Object> updateMapWithTimestampLastChanged(
+            final HashMap<String, User> sharedWith, final String listId, final String owner,
+            HashMap<String, Object> mapToAddDateToUpdate) {
+
+        HashMap<String, Object> timestampNowHash = new HashMap<>();
+        timestampNowHash.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
+
+        updateMapForAllWithValue(
+                sharedWith,
+                listId, owner, mapToAddDateToUpdate,
+                Constants.FIREBASE_PROPERTY_TIMESTAMP_LAST_CHANGED, timestampNowHash);
+        return mapToAddDateToUpdate;
     }
 
     public static void createUserInFirebaseHelper(final String mUserEmail, final String mUserName) {
@@ -54,7 +131,7 @@ public class Utils {
                     HashMap<String, Object> timestampJoined = new HashMap<>();
                     timestampJoined.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
 
-                    User newUser = new User(mUserEmail, mUserName, timestampJoined);
+                    User newUser = new User(encodedEmail, mUserName, timestampJoined);
                     userLocation.setValue(newUser);
                 }
             }
@@ -66,51 +143,4 @@ public class Utils {
         });
     }
 
-    /**
-     * Adds values to a pre-existing HashMap for updating a property for all of the ShoppingList copies.
-     * The HashMap can then be used with updateChildren to update the property
-     * for all ShoppingList copies.
-     *
-     * @param listId           The id of the shopping list.
-     * @param owner            The owner of the shopping list.
-     * @param mapToUpdate      The map containing the key, value pairs which will be used
-     *                         to update the Firebase database. This MUST be a Hashmap of key
-     *                         value pairs who's urls are absolute (i.e. from the root node)
-     * @param propertyToUpdate The property to update
-     * @param valueToUpdate    The value to update
-     * @return The updated HashMap with the new value inserted in all lists
-     */
-    public static HashMap<String, Object> updateMapForAllWithValue(final String listId,
-                                                                   final String owner,
-                                                                   HashMap<String, Object> mapToUpdate,
-                                                                   String propertyToUpdate,
-                                                                   Object valueToUpdate) {
-        mapToUpdate.put("/" + Constants.FIREBASE_LOCATION_USER_LISTS + "/" + owner + "/"
-                + listId + "/" + propertyToUpdate, valueToUpdate);
-
-        return mapToUpdate;
-    }
-
-    /**
-     * Adds values to a pre-existing HashMap for updating all Last Changed Timestamps for all of
-     * the ShoppingList copies. This method uses {@link #updateMapForAllWithValue} to update the
-     * last changed timestamp for all ShoppingList copies.
-     *
-     * @param listId               The id of the shopping list.
-     * @param owner                The owner of the shopping list.
-     * @param mapToAddDateToUpdate The map containing the key, value pairs which will be used
-     *                             to update the Firebase database. This MUST be a Hashmap of key
-     *                             value pairs who's urls are absolute (i.e. from the root node)
-     * @return
-     */
-    public static HashMap<String, Object> updateMapWithTimestampLastChanged(String listId, String owner,
-                                                                            HashMap<String, Object> mapToAddDateToUpdate) {
-
-        HashMap<String, Object> timeStampNowHash = new HashMap<>();
-        timeStampNowHash.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
-
-        updateMapForAllWithValue(listId, owner, mapToAddDateToUpdate,
-                Constants.FIREBASE_PROPERTY_TIMESTAMP_LAST_CHANGED, timeStampNowHash);
-        return mapToAddDateToUpdate;
-    }
 }

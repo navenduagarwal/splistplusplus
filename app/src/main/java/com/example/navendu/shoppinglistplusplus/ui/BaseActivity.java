@@ -8,7 +8,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
@@ -21,6 +20,8 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -28,9 +29,8 @@ import com.google.firebase.auth.FirebaseUser;
 /**
  * Created by navendu on 7/21/2016.
  */
-public class BaseActivity extends AppCompatActivity implements
+public abstract class BaseActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener {
-    protected final static String LOG_TAG = BaseActivity.class.getSimpleName();
     protected String mProvider, mEncodedEmail;
     protected GoogleApiClient mGoogleApiClient;
     protected FirebaseAuth.AuthStateListener mAuthListener;
@@ -58,17 +58,13 @@ public class BaseActivity extends AppCompatActivity implements
         /**
          * Get provider and encoded email from SharedPreferences
          */
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(BaseActivity.this);
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(BaseActivity.this);
         /* Get mEncodedEmail and mProvider from SharedPreferences, use null as default value */
         mEncodedEmail = sharedPreferences.getString(Constants.KEY_ENCODED_EMAIL, null);
         mProvider = sharedPreferences.getString(Constants.KEY_PROVIDER_ID, null);
 
         if (!((this instanceof LoginActivity) || (this instanceof CreateAccountActivity))) {
-
-            // [START initialize_auth]
             mAuth = FirebaseAuth.getInstance();
-            // [END initialize_auth]
-
             // [START auth_state_listener]
             mAuthListener = new FirebaseAuth.AuthStateListener() {
                 @Override
@@ -76,7 +72,11 @@ public class BaseActivity extends AppCompatActivity implements
                     FirebaseUser user = firebaseAuth.getCurrentUser();
                     if (user == null) {
                         // User is signed out
-                        Log.d(LOG_TAG, "onAuthStateChanged:signed_out");
+                         /* Clear out shared preferences */
+                        SharedPreferences.Editor spe = sharedPreferences.edit();
+                        spe.putString(Constants.KEY_ENCODED_EMAIL, null);
+                        spe.putString(Constants.KEY_PROVIDER_ID, null);
+                        takeUserToLoginScreenOnUnAuth();
 
                     /* Go to Login activity */
                         Intent intent = new Intent(BaseActivity.this, LoginActivity.class);
@@ -86,36 +86,18 @@ public class BaseActivity extends AppCompatActivity implements
                     }
                 }
             };
-            // [END auth_state_listener]
-        }
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.i(LOG_TAG, "GoogleApiClient connection failed: ConnectionResult.getErrorCode() = " + connectionResult.getErrorCode());
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (!((this instanceof LoginActivity) || (this instanceof CreateAccountActivity))) {
             mAuth.addAuthStateListener(mAuthListener);
         }
-    }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (!((this instanceof LoginActivity) || (this instanceof CreateAccountActivity))) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (!((this instanceof LoginActivity) || (this instanceof CreateAccountActivity))) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+
     }
 
     @Override
@@ -138,9 +120,8 @@ public class BaseActivity extends AppCompatActivity implements
             return true;
         }
         if (id == R.id.action_logout) {
-            if (!((this instanceof LoginActivity) || (this instanceof CreateAccountActivity))) {
-                mAuth.signOut();
-            }
+            logout();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -156,4 +137,37 @@ public class BaseActivity extends AppCompatActivity implements
         }
     }
 
+    /**
+     * Logs out the user from their current session and starts LoginActivity.
+     * Also disconnects the mGoogleApiClient if connected and provider is Google
+     */
+    protected void logout() {
+    /* logout if mProvider is not null */
+        if (mProvider != null) {
+            mAuth.signOut();
+
+            if (mProvider.equals(Constants.GOOGLE_PROVIDER)) {
+                /* Logout from Google+ */
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                        new ResultCallback<Status>() {
+                            @Override
+                            public void onResult(Status status) {
+                                //nothing
+                            }
+                        });
+            }
+        }
+    }
+
+    private void takeUserToLoginScreenOnUnAuth() {
+        /* Move user to LoginActivity, and remove the backstack */
+        Intent intent = new Intent(BaseActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+    }
 }

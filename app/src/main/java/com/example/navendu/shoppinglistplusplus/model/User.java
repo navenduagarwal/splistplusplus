@@ -9,6 +9,7 @@ public class User {
     private String email;
     private String name;
     private HashMap<String, Object> timestampJoined;
+    private boolean hasLoggedInWithPassword;
 
     public User() {
     }
@@ -17,6 +18,7 @@ public class User {
         this.email = email;
         this.name = name;
         this.timestampJoined = timestampJoined;
+        this.hasLoggedInWithPassword = false;
     }
 
     public String getEmail() {
@@ -31,4 +33,7 @@ public class User {
         return timestampJoined;
     }
 
+    public boolean isHasLoggedInWithPassword() {
+        return hasLoggedInWithPassword;
+    }
 }

@@ -12,10 +12,11 @@ public class Constants {
      * where active lists are stored (ie "activeLists")
      */
     public static final String FIREBASE_LOCATION_USER_LISTS = "usersLists";
-    public static final String FIREBASE_LOCATION_SHARED_WITH = "sharedWith";
+    public static final String FIREBASE_LOCATION_LISTS_SHARED_WITH = "sharedWith";
     public static final String FIREBASE_LOCATION_USER_FRIENDS = "userFriends";
     public static final String FIREBASE_LOCATION_SHOPPING_LIST_ITEMS = "shoppingListItems";
     public static final String FIREBASE_LOCATION_USERS = "users";
+
 
     /**
      * Constants for Firebase object properties
@@ -37,6 +38,8 @@ public class Constants {
     public static final String FIREBASE_URL_SHOPPING_LIST_ITEMS = FIREBASE_URL + "/" + FIREBASE_LOCATION_SHOPPING_LIST_ITEMS;
     public static final String FIREBASE_URL_USERS = FIREBASE_URL + "/" + FIREBASE_LOCATION_USERS;
     public static final String FIREBASE_URL_USER_LISTS = FIREBASE_URL + "/" + FIREBASE_LOCATION_USER_LISTS;
+    public static final String FIREBASE_URL_USER_FRIENDS = FIREBASE_URL + "/" + FIREBASE_LOCATION_USER_FRIENDS;
+    public static final String FIREBASE_URL_LISTS_SHARED_WITH = FIREBASE_URL + "/" + FIREBASE_LOCATION_LISTS_SHARED_WITH;
     /**
      * Constants for bundles, extras and shared preferences keys
      */
@@ -50,10 +53,11 @@ public class Constants {
     public static final String KEY_LIST_OWNER = "LIST_OWNER";
     public static final String KEY_SIGNUP_EMAIL = "SIGNUP_EMAIL";
     public static final String KEY_PREF_SORT_ORDER_LISTS = "PERF_SORT_ORDER_LISTS";
-
+    public static final String KEY_SHARED_WITH_USERS = "SHARED_WITH_USERS";
     /**
      * Constants for Firebase login
      */
+    public static final String PASSWORD_PROVIDER = "password";
     public static final String GOOGLE_PROVIDER = "google";
     public static final String PROVIDER_DATA_DISPLAY_NAME = "displayName";
 

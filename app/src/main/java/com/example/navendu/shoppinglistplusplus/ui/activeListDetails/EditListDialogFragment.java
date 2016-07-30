@@ -15,7 +15,10 @@ import android.widget.TextView;
 
 import com.example.navendu.shoppinglistplusplus.R;
 import com.example.navendu.shoppinglistplusplus.model.ShoppingList;
+import com.example.navendu.shoppinglistplusplus.model.User;
 import com.example.navendu.shoppinglistplusplus.utils.Constants;
+
+import java.util.HashMap;
 
 /**
  * Base class for {@link DialogFragment}s involved with editing a shopping list.
@@ -25,6 +28,7 @@ public abstract class EditListDialogFragment extends DialogFragment {
     EditText mEditTextForList;
     int mResource;
     String mListId, mEncodedEmail, mOwner;
+    HashMap<String, User> mSharedWith;
 
     /**
      * Helper method that creates a basic bundle of all of the information needed to change
@@ -34,12 +38,14 @@ public abstract class EditListDialogFragment extends DialogFragment {
      * @param resource
      * @return
      */
-    protected static Bundle newInstanceHelper(ShoppingList shoppingList, int resource, String listId, String encodedEmail) {
+    protected static Bundle newInstanceHelper(ShoppingList shoppingList, int resource
+            , String listId, String encodedEmail, HashMap<String, User> sharedWithUsers) {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.KEY_LIST_ID, listId);
         bundle.putInt(Constants.KEY_LAYOUT_RESOURCE, resource);
         bundle.putString(Constants.KEY_LIST_OWNER, shoppingList.getOwner());
         bundle.putString(Constants.KEY_ENCODED_EMAIL, encodedEmail);
+        bundle.putSerializable(Constants.KEY_SHARED_WITH_USERS, sharedWithUsers);
         return bundle;
     }
 
@@ -49,6 +55,7 @@ public abstract class EditListDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mSharedWith = (HashMap<String, User>) getArguments().getSerializable(Constants.KEY_SHARED_WITH_USERS);
         mListId = getArguments().getString(Constants.KEY_LIST_ID);
         mResource = getArguments().getInt(Constants.KEY_LAYOUT_RESOURCE);
         mOwner = getArguments().getString(Constants.KEY_LIST_OWNER);

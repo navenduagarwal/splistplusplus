@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.example.navendu.shoppinglistplusplus.R;
 import com.example.navendu.shoppinglistplusplus.model.ShoppingList;
 import com.example.navendu.shoppinglistplusplus.model.ShoppingListItem;
+import com.example.navendu.shoppinglistplusplus.model.User;
 import com.example.navendu.shoppinglistplusplus.utils.Constants;
 import com.example.navendu.shoppinglistplusplus.utils.Utils;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,10 +25,11 @@ public class AddListItemDialogFragment extends EditListDialogFragment {
      * Public static constructor that creates fragment and passes a bundle with data into it when adapter is created
      */
     public static AddListItemDialogFragment newInstance(ShoppingList shoppingList, String listId,
-                                                        String encodedEmail) {
+                                                        String encodedEmail,
+                                                        HashMap<String, User> sharedWithUsers) {
         AddListItemDialogFragment addListItemDialogFragment = new AddListItemDialogFragment();
         Bundle bundle = EditListDialogFragment.newInstanceHelper(shoppingList,
-                R.layout.dialog_add_item, listId, encodedEmail);
+                R.layout.dialog_add_item, listId, encodedEmail, sharedWithUsers);
         addListItemDialogFragment.setArguments(bundle);
         return addListItemDialogFragment;
     }
@@ -79,7 +81,7 @@ public class AddListItemDialogFragment extends EditListDialogFragment {
                     + "/" + itemId, itemToAdd);
 
             /* Update Affected lists timestamp */
-            Utils.updateMapWithTimestampLastChanged(mListId, mOwner, updatedItemToAddMap);
+            Utils.updateMapWithTimestampLastChanged(mSharedWith, mListId, mOwner, updatedItemToAddMap);
 
             /* Do the update */
             firebaseRef.updateChildren(updatedItemToAddMap);

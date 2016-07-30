@@ -29,8 +29,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends BaseActivity {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-    private DatabaseReference userLocation;
-    private ValueEventListener userValueListener;
+    private DatabaseReference mUserRef;
+    private ValueEventListener mUserRefListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +39,17 @@ public class MainActivity extends BaseActivity {
         /**
          * Create Firebase references
          */
-        userLocation = FirebaseDatabase.getInstance()
+        mUserRef = FirebaseDatabase.getInstance()
                 .getReferenceFromUrl(Constants.FIREBASE_URL_USERS).child(mEncodedEmail);
+        /**
+         * Link layout elements from XML and setup the toolbar
+         */
+        initializeScreen();
 
         /**
          * Adding ValueListener to control get data and visibiliy of elements on UI
          */
-        userValueListener = userLocation.addValueEventListener(new ValueEventListener() {
+        mUserRefListener = mUserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
@@ -63,12 +67,6 @@ public class MainActivity extends BaseActivity {
                 Log.d(LOG_TAG, R.string.log_error_occurred + databaseError.getMessage());
             }
         });
-
-        /**
-         * Link layout elements from XML and setup the toolbar
-         */
-        initializeScreen();
-
     }
 
     /**
@@ -102,7 +100,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        userLocation.removeEventListener(userValueListener);
+        mUserRef.removeEventListener(mUserRefListener);
     }
 
     /**
@@ -201,5 +199,6 @@ public class MainActivity extends BaseActivity {
                     return getString(R.string.pager_title_meals);
             }
         }
+
     }
 }
