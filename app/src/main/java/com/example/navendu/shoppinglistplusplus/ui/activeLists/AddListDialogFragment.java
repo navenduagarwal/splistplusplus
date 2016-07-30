@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -18,6 +19,8 @@ import com.example.navendu.shoppinglistplusplus.model.ShoppingList;
 import com.example.navendu.shoppinglistplusplus.utils.Constants;
 import com.example.navendu.shoppinglistplusplus.utils.Utils;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
@@ -134,7 +137,15 @@ public class AddListDialogFragment extends DialogFragment {
                     new ObjectMapper().convertValue(newShoppingList, Map.class);
 
             Utils.updateMapForAllWithValue(null, listId, mEncodedEmail, updateShoppingListData, "", shoppingListMap);
-            firebaseRef.updateChildren(updateShoppingListData);
+
+              /* Do a deep-path update */
+            firebaseRef.updateChildren(updateShoppingListData).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Utils.updateTimestampReversed(task.getException(), "AddList", listId, null,
+                            mEncodedEmail);
+                }
+            });
 
             /*Close the dialog fragment */
             AddListDialogFragment.this.getDialog().cancel();

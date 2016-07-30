@@ -3,6 +3,7 @@ package com.example.navendu.shoppinglistplusplus.ui.activeListDetails;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.Paint;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.example.navendu.shoppinglistplusplus.model.User;
 import com.example.navendu.shoppinglistplusplus.utils.Constants;
 import com.example.navendu.shoppinglistplusplus.utils.Utils;
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +36,7 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
     private String mEncodedEmail;
     private ShoppingList mShoppingList;
     private HashMap<String, User> mSharedWithUsers;
+
     /**
      * Public constructor that initializes private instance variables when adapter is created
      *
@@ -157,8 +161,15 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
             /* Add updated timeStamp */
             Utils.updateMapWithTimestampLastChanged(mSharedWithUsers, mListId, mShoppingList.getOwner(), updateRemoveItemMap);
 
-            /* Do the update */
-            firebaseRef.updateChildren(updateRemoveItemMap);
+         /* Do a deep-path update */
+            firebaseRef.updateChildren(updateRemoveItemMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Utils.updateTimestampReversed(task.getException(), "ActListItemAdap", mListId, mSharedWithUsers,
+                            mShoppingList.getOwner());
+                }
+            });
+
         }
     }
 
@@ -213,7 +224,7 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
              * is visible.
              */
             if (owner.equals(mEncodedEmail) || (mShoppingList != null && mShoppingList.getOwner().equals(mEncodedEmail))) {
-            trashCanButton.setVisibility(View.VISIBLE); //Invisible instead of gone, so that layout still take the spac
+                trashCanButton.setVisibility(View.VISIBLE); //Invisible instead of gone, so that layout still take the spac
             } else {
                 trashCanButton.setVisibility(View.INVISIBLE);
             }

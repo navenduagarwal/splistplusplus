@@ -2,6 +2,7 @@ package com.example.navendu.shoppinglistplusplus.ui.activeListDetails;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.WindowManager;
 
 import com.example.navendu.shoppinglistplusplus.R;
@@ -9,6 +10,8 @@ import com.example.navendu.shoppinglistplusplus.model.ShoppingList;
 import com.example.navendu.shoppinglistplusplus.model.User;
 import com.example.navendu.shoppinglistplusplus.utils.Constants;
 import com.example.navendu.shoppinglistplusplus.utils.Utils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -88,8 +91,15 @@ public class EditListNameDialogFragment extends EditListDialogFragment {
                 /*Update timestamp for all lists */
             Utils.updateMapWithTimestampLastChanged(mSharedWith, mListId, mOwner, updatedListData);
 
-                /* do the update */
-            firebaseRef.updateChildren(updatedListData);
+            /* Do a deep-path update */
+            firebaseRef.updateChildren(updatedListData).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Utils.updateTimestampReversed(task.getException(), LOG_TAG, mListId, mSharedWith,
+                            mOwner);
                 }
+            });
+
+        }
             }
 }

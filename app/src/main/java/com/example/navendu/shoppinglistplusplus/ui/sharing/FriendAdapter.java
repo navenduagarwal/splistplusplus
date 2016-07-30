@@ -1,6 +1,7 @@
 package com.example.navendu.shoppinglistplusplus.ui.sharing;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -13,6 +14,8 @@ import com.example.navendu.shoppinglistplusplus.utils.Constants;
 import com.example.navendu.shoppinglistplusplus.utils.Utils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +35,7 @@ public class FriendAdapter extends FirebaseListAdapter<User> {
     private DatabaseReference mFirebaseRef;
     private ShoppingList mShoppingList;
     private HashMap<String, User> mSharedUsersList;
+    private HashMap<DatabaseReference, ValueEventListener> mLocationListenerMap;
 
     /**
      * Public constructor that initializes private instance variables when adapter is created
@@ -43,6 +47,7 @@ public class FriendAdapter extends FirebaseListAdapter<User> {
         this.mListId = listId;
         this.mFirebaseRef = FirebaseDatabase.getInstance()
                 .getReferenceFromUrl(Constants.FIREBASE_URL);
+        mLocationListenerMap = new HashMap<>();
     }
 
     /**
@@ -69,7 +74,15 @@ public class FriendAdapter extends FirebaseListAdapter<User> {
                         @Override
                         public void onClick(View view) {
                             HashMap<String, Object> updatedUserData = updateFriendInSharedWith(false, friend);
-                            mFirebaseRef.updateChildren(updatedUserData);
+                            /* Do a deep-path update */
+                            mFirebaseRef.updateChildren(updatedUserData).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Utils.updateTimestampReversed(task.getException(), LOG_TAG, mListId, mSharedUsersList,
+                                            mShoppingList.getOwner());
+                                }
+                            });
+
                         }
                     });
 
@@ -79,7 +92,14 @@ public class FriendAdapter extends FirebaseListAdapter<User> {
                         @Override
                         public void onClick(View view) {
                             HashMap<String, Object> updatedUserData = updateFriendInSharedWith(true, friend);
-                            mFirebaseRef.updateChildren(updatedUserData);
+                            /* Do a deep-path update */
+                            mFirebaseRef.updateChildren(updatedUserData).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Utils.updateTimestampReversed(task.getException(), LOG_TAG, mListId, mSharedUsersList,
+                                            mShoppingList.getOwner());
+                                }
+                            });
                         }
                     });
                 }
@@ -90,6 +110,8 @@ public class FriendAdapter extends FirebaseListAdapter<User> {
                 Log.e(LOG_TAG, mActivity.getString(R.string.log_error_the_read_failed) + databaseError.getMessage());
             }
         });
+        /* Add the listener to the HashMap so that it can be removed on cleanup */
+        mLocationListenerMap.put(sharedFriendInShoppingListRef, valueEventListener);
     }
 
     /**
@@ -164,5 +186,9 @@ public class FriendAdapter extends FirebaseListAdapter<User> {
     @Override
     public void cleanup() {
         super.cleanup();
+    /* Clean up the event listeners */
+        for (HashMap.Entry<DatabaseReference, ValueEventListener> listenerToClean : mLocationListenerMap.entrySet()) {
+            listenerToClean.getKey().removeEventListener(listenerToClean.getValue());
+        }
     }
 }

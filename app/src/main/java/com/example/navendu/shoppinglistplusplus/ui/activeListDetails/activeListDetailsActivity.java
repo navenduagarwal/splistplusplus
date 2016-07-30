@@ -262,12 +262,12 @@ public class ActiveListDetailsActivity extends BaseActivity {
             remove.setVisible(mCurrentUserIsOwner);
             edit.setVisible(mCurrentUserIsOwner);
             share.setVisible(mCurrentUserIsOwner);
-                archive.setVisible(false);
-            } else {
-                remove.setVisible(false);
-                edit.setVisible(false);
-                share.setVisible(false);
-                archive.setVisible(false);
+            archive.setVisible(false);
+        } else {
+            remove.setVisible(false);
+            edit.setVisible(false);
+            share.setVisible(false);
+            archive.setVisible(false);
         }
 
         return true;
@@ -484,8 +484,14 @@ public class ActiveListDetailsActivity extends BaseActivity {
             /** Update timestamp **/
             Utils.updateMapWithTimestampLastChanged(mSharedWithUsers, mListId, mShoppingList.getOwner(), updatedUserData);
 
-            /**Do a deep-path update **/
-            firebaseRef.updateChildren(updatedUserData);
+            /* Do a deep-path update */
+            firebaseRef.updateChildren(updatedUserData).addOnCompleteListener(new OnCompleteListener<Void>(){
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Utils.updateTimestampReversed(task.getException(),LOG_TAG, mListId, mSharedWithUsers,
+                            mShoppingList.getOwner());
+                }
+            });
 
         } else {
             /** Add to current list of users **/
@@ -501,8 +507,14 @@ public class ActiveListDetailsActivity extends BaseActivity {
             /** Update timestamp **/
             Utils.updateMapWithTimestampLastChanged(mSharedWithUsers, mListId, mShoppingList.getOwner(), updatedUserData);
 
-            /**Do a deep-path update **/
-            firebaseRef.updateChildren(updatedUserData);
+            /* Do a deep-path update */
+            firebaseRef.updateChildren(updatedUserData).addOnCompleteListener(new OnCompleteListener<Void>(){
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Utils.updateTimestampReversed(task.getException(),LOG_TAG, mListId, mSharedWithUsers,
+                            mShoppingList.getOwner());
+                }
+            });
 
         }
     }

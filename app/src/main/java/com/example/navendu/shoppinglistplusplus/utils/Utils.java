@@ -60,7 +60,8 @@ public class Utils {
      * Adds values to a pre-existing HashMap for updating a property for all of the ShoppingList copies.
      * The HashMap can then be used with updateChildren to update the property
      * for all ShoppingList copies.
-     * @param sharedWith            The list of users the shopping list that has been updated is shared with.
+     *
+     * @param sharedWith       The list of users the shopping list that has been updated is shared with.
      * @param listId           The id of the shopping list.
      * @param owner            The owner of the shopping list.
      * @param mapToUpdate      The map containing the key, value pairs which will be used
@@ -93,7 +94,7 @@ public class Utils {
      * the ShoppingList copies. This method uses {@link #updateMapForAllWithValue} to update the
      * last changed timestamp for all ShoppingList copies.
      *
-     * @param sharedWith            The list of users the shopping list that has been updated is shared with.
+     * @param sharedWith           The list of users the shopping list that has been updated is shared with.
      * @param listId               The id of the shopping list.
      * @param owner                The owner of the shopping list.
      * @param mapToAddDateToUpdate The map containing the key, value pairs which will be used
@@ -143,4 +144,56 @@ public class Utils {
         });
     }
 
+    /**
+     * Once an update is made to a ShoppingList, this method is responsible for updating the
+     * reversed timestamp to be equal to the negation of the current timestamp. This comes after
+     * the updateMapWithTimestampChanged because ServerValue.TIMESTAMP must be resolved to a long
+     * value.
+     *
+     * @param exception          The Firebase error, if there was one, from the original update. This
+     *                           method should only run if the shopping list's timestamp last changed
+     *                           was successfully updated.
+     * @param logTagFromActivity The log tag from the activity calling this method
+     * @param listId             The updated shopping list push ID
+     * @param sharedWith         The list of users that this updated shopping list is shared with
+     * @param owner              The owner of the updated shopping list
+     */
+    public static void updateTimestampReversed(Exception exception, final String logTagFromActivity,
+                                               final String listId, final HashMap<String, User> sharedWith,
+                                               final String owner) {
+        if (exception != null) {
+            Log.d(logTagFromActivity, "Error updating timestamp: " + exception.getMessage());
+        } else {
+            final DatabaseReference firebaseRef = FirebaseDatabase.getInstance()
+                    .getReferenceFromUrl(Constants.FIREBASE_URL);
+            firebaseRef.child(Constants.FIREBASE_LOCATION_USER_LISTS).child(owner)
+                    .child(listId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    ShoppingList list = dataSnapshot.getValue(ShoppingList.class);
+                    if (list != null) {
+                        long timeReverse = -(list.getTimestampLastChangedLong());
+                        String timeReverseLocation = Constants.FIREBASE_PROPERTY_TIMESTAMP_LAST_CHANGED_REVERSE
+                                + "/" + Constants.FIREBASE_PROPERTY_TIMESTAMP;
+
+                        /**
+                         * Create map and fill it in with deep path multi write operations list
+                         */
+                        HashMap<String, Object> updatedShoppingListData = new HashMap<String, Object>();
+
+                        updateMapForAllWithValue(sharedWith, listId, owner, updatedShoppingListData,
+                                timeReverseLocation, timeReverse);
+                        firebaseRef.updateChildren(updatedShoppingListData);
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.d(logTagFromActivity, "Error updating data: " + databaseError.getMessage());
+                }
+            });
+        }
+    }
 }

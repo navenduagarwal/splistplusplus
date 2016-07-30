@@ -36,8 +36,7 @@
             android:imeOptions="flagNoExtractUi"
             android:inputType="textEmailAddress"
             android:textColor="@color/black"
-            android:textColorHint="@color/dark_grey"
-            android:visibility="gone" />
+            android:textColorHint="@color/dark_grey" />
     </android.support.design.widget.TextInputLayout>
 
 </RelativeLayout>

@@ -2,12 +2,15 @@ package com.example.navendu.shoppinglistplusplus.ui.activeListDetails;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import com.example.navendu.shoppinglistplusplus.R;
 import com.example.navendu.shoppinglistplusplus.model.ShoppingList;
 import com.example.navendu.shoppinglistplusplus.model.User;
 import com.example.navendu.shoppinglistplusplus.utils.Constants;
 import com.example.navendu.shoppinglistplusplus.utils.Utils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -81,8 +84,15 @@ public class EditListItemNameDialogFragment extends EditListDialogFragment {
             /* updated timestamp in all lists*/
             Utils.updateMapWithTimestampLastChanged(mSharedWith, mListId, mOwner, updatedDataItemToEditMap);
 
-            /* Do the update */
-            firebaseRef.updateChildren(updatedDataItemToEditMap);
+        /* Do a deep-path update */
+            firebaseRef.updateChildren(updatedDataItemToEditMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Utils.updateTimestampReversed(task.getException(), "EditListItem", mListId, mSharedWith,
+                            mOwner);
+                }
+            });
+
         }
     }
 }
