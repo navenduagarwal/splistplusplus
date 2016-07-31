@@ -46,7 +46,6 @@ public class ActiveListAdapter extends FirebaseListAdapter<ShoppingList> {
         /* Set the list name and owner */
         textViewListName.setText(list.getListName());
 
-        Log.d("Test Owner", list.getListName() + ownerEmail + mEncodedEmail); //TODO Remove this
         /**
          * Updating Number of Current Shopper's List
          * Show "1 person is shopping" if one person is shopping

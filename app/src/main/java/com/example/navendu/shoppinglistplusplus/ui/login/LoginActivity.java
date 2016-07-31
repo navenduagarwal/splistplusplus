@@ -384,7 +384,6 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.OnCon
                 UserInfo user = task.getResult().getUser().getProviderData().get(0);
                 String userProvider = task.getResult().getUser().getProviderData().get(1).getProviderId();
                 if (user != null) {
-                    Log.d(LOG_TAG, "Provider" + provider + "" + userProvider);
                     if (userProvider.equals(Constants.PASSWORD_PROVIDER)) {
                         setAuthenticatedUserPasswordProvider(user);
                     } else if (userProvider.equals(Constants.GOOGLE_PROVIDER)) {
