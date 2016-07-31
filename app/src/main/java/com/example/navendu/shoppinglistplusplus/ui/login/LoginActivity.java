@@ -382,15 +382,18 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.OnCon
                 Log.i(LOG_TAG, " " + getString(R.string.log_message_auth_successful));
 
                 UserInfo user = task.getResult().getUser().getProviderData().get(0);
+                String userProvider = task.getResult().getUser().getProviderData().get(1).getProviderId();
                 if (user != null) {
-                    Log.d(LOG_TAG, "Provider" + provider + "" + user.getProviderId());
-                    if (provider.equals(Constants.PASSWORD_PROVIDER)) {
+                    Log.d(LOG_TAG, "Provider" + provider + "" + userProvider);
+                    if (userProvider.equals(Constants.PASSWORD_PROVIDER)) {
                         setAuthenticatedUserPasswordProvider(user);
-                    } else if (provider.equals(Constants.GOOGLE_PROVIDER)) {
+                    } else if (userProvider.equals(Constants.GOOGLE_PROVIDER)) {
                         setAuthenticatedUserGoogle(user);
+                    } else {
+                        Log.e(LOG_TAG, getString(R.string.log_error_invalid_provider) + userProvider);
                     }
                      /* Save provider name and encodedEmail for later use and start MainActivity */
-                    mSharedPrefEditor.putString(Constants.KEY_PROVIDER_ID, provider).apply();
+                    mSharedPrefEditor.putString(Constants.KEY_PROVIDER_ID, userProvider).apply();
                     mSharedPrefEditor.putString(Constants.KEY_ENCODED_EMAIL, mEncodedEmail).apply();
 
                 /* Go to main activity */
