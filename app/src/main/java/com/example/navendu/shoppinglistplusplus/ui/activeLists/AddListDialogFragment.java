@@ -33,8 +33,8 @@ import java.util.Map;
  */
 public class AddListDialogFragment extends DialogFragment {
 
-    private EditText mEditTextListName;
-    private String mEncodedEmail;
+    EditText mEditTextListName;
+    String mEncodedEmail;
 
     /**
      * Public static constructor that creates fragment and
@@ -67,7 +67,8 @@ public class AddListDialogFragment extends DialogFragment {
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {// Use the Builder class for convenient dialog construction
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.CustomTheme_Dialog);
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -105,15 +106,15 @@ public class AddListDialogFragment extends DialogFragment {
      * Add new active list
      */
     public void addShoppingList() {
-        String userEnteredListName = mEditTextListName.getText().toString();
+        String userEnteredName = mEditTextListName.getText().toString();
 
         /**
          * If EditText input is not empty
          */
-        if (!userEnteredListName.equals("")) {
-            DatabaseReference listsRef = FirebaseDatabase.getInstance()
+        if (!userEnteredName.equals("")) {
+            DatabaseReference userListsRef = FirebaseDatabase.getInstance()
                     .getReferenceFromUrl(Constants.FIREBASE_URL_USER_LISTS).child(mEncodedEmail);
-            DatabaseReference newListRef = listsRef.push();
+            DatabaseReference newListRef = userListsRef.push();
 
             DatabaseReference firebaseRef = FirebaseDatabase.getInstance()
                     .getReferenceFromUrl(Constants.FIREBASE_URL);
@@ -132,7 +133,7 @@ public class AddListDialogFragment extends DialogFragment {
 
              /* Build the shopping list */
 
-            ShoppingList newShoppingList = new ShoppingList(userEnteredListName, mEncodedEmail, timestampCreated);
+            ShoppingList newShoppingList = new ShoppingList(userEnteredName, mEncodedEmail, timestampCreated);
             HashMap<String, Object> shoppingListMap = (HashMap<String, Object>)
                     new ObjectMapper().convertValue(newShoppingList, Map.class);
 

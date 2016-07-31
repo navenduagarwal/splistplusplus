@@ -13,8 +13,7 @@ public class ShoppingListApplication extends android.app.Application {
     public void onCreate() {
         super.onCreate();
         if (!FirebaseApp.getApps(this).isEmpty()) {
-            FirebaseDatabase.getInstance();
-            // FirebaseDatabase.getInstance().setLogLevel(Logger.Level.DEBUG);
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         }
     }
 

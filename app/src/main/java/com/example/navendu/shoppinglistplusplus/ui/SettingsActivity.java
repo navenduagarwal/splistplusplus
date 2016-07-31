@@ -30,7 +30,7 @@ public class SettingsActivity extends PreferenceActivity {
     /**
      * This fragment shows the preferences for the first header.
      */
-    public static class SortPreferenceFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener, SharedPreferences.OnSharedPreferenceChangeListener {
+    public static class SortPreferenceFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -86,11 +86,6 @@ public class SettingsActivity extends PreferenceActivity {
                     preference.setSummary(listPreference.getEntries()[prefIndex]);
                 }
             }
-        }
-
-        @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-
         }
     }
 }

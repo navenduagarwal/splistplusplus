@@ -29,13 +29,14 @@ public class AddFriendActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friend);
 
+        mUsersRef = FirebaseDatabase.getInstance()
+                .getReferenceFromUrl(Constants.FIREBASE_URL_USERS);
+
         /**
          * Link layout elements from XML and setup the toolbar
          */
         initializeScreen();
 
-        mUsersRef = FirebaseDatabase.getInstance()
-                .getReferenceFromUrl(Constants.FIREBASE_URL_USERS);
         /**
          * Set interactive bits, such as click events/adapters
          */

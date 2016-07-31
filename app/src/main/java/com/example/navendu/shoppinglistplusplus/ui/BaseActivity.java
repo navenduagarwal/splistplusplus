@@ -77,12 +77,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
                         spe.putString(Constants.KEY_ENCODED_EMAIL, null);
                         spe.putString(Constants.KEY_PROVIDER_ID, null);
                         takeUserToLoginScreenOnUnAuth();
-
-                    /* Go to Login activity */
-                        Intent intent = new Intent(BaseActivity.this, LoginActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        finish();
                     }
                 }
             };

@@ -37,37 +37,36 @@ public class ActiveListAdapter extends FirebaseListAdapter<ShoppingList> {
      */
 
     @Override
-    protected void populateView(View v, ShoppingList model, final int position) {
-        final TextView mTextViewListName = (TextView) v.findViewById(R.id.text_view_list_name);
-        final TextView mTextViewListCreatedBy = (TextView) v.findViewById(R.id.text_view_created_by_user);
-        final TextView mTextViewPeopleShopping = (TextView) v.findViewById(R.id.text_view_people_shopping_count);
-        final String ownerEmail = model.getOwner();
-        mTextViewListName.setText(model.getListName());
-        mTextViewListCreatedBy.setText("");
-        Log.d("Test Owner", model.getListName() + model.getOwner());
+    protected void populateView(View v, ShoppingList list, final int position) {
+        TextView textViewListName = (TextView) v.findViewById(R.id.text_view_list_name);
+        final TextView textViewCreatedByUser = (TextView) v.findViewById(R.id.text_view_created_by_user);
+        final TextView textViewUsersShopping = (TextView) v.findViewById(R.id.text_view_people_shopping_count);
+
+        final String ownerEmail = list.getOwner();
+        /* Set the list name and owner */
+        textViewListName.setText(list.getListName());
+
+        Log.d("Test Owner", list.getListName() + ownerEmail + mEncodedEmail); //TODO Remove this
         /**
          * Updating Number of Current Shopper's List
          * Show "1 person is shopping" if one person is shopping
          * Show "N people shopping" if two or more users are shopping
          * Show nothing if nobody is shopping
          */
-        if (model.getUsersShopping() != null) {
-            int shoppers = model.getUsersShopping().size();
-            switch (shoppers) {
-                case 1:
-                    mTextViewPeopleShopping.setText(
-                            String.format(mActivity.getString(R.string.person_shopping), shoppers)
-                    );
-                    break;
-                default:
-                    mTextViewPeopleShopping.setText(
-                            String.format(mActivity.getString(R.string.people_shopping), shoppers)
-                    );
-                    break;
+        if (list.getUsersShopping() != null) {
+            int usersShopping = list.getUsersShopping().size();
+            if (usersShopping == 1) {
+                textViewUsersShopping.setText(String.format(
+                        mActivity.getResources().getString(R.string.person_shopping),
+                        usersShopping));
+            } else {
+                textViewUsersShopping.setText(String.format(
+                        mActivity.getResources().getString(R.string.people_shopping),
+                        usersShopping));
             }
         } else {
             /* otherwise show nothing */
-            mTextViewPeopleShopping.setText("");
+            textViewUsersShopping.setText("");
         }
 
 
@@ -75,33 +74,27 @@ public class ActiveListAdapter extends FirebaseListAdapter<ShoppingList> {
          * Updating Created By Text
          */
         if (ownerEmail != null) {
-            if (mEncodedEmail.equals(ownerEmail)) {
-                mTextViewListCreatedBy.setText(mActivity.getResources().getString(R.string.text_you));
-//                Log.d("Test Owner", 1 + mTextViewListName.getText().toString()+" " +
-//                        mTextViewListCreatedBy.getText().toString() + " "+ownerEmail + " "+mEncodedEmail);
-            } else {
-                DatabaseReference ownersRef = FirebaseDatabase.getInstance()
-                        .getReferenceFromUrl(Constants.FIREBASE_URL_USERS).child(ownerEmail);
+            DatabaseReference userRef = FirebaseDatabase.getInstance()
+                    .getReferenceFromUrl(Constants.FIREBASE_URL_USERS).child(list.getOwner());
                 /* Get Owners name */
-                ownersRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        User owner = dataSnapshot.getValue(User.class);
-                        if (owner != null && !owner.getEmail().equals(mEncodedEmail)) {
-                            mTextViewListCreatedBy.setText(owner.getName());
-//                            Log.d("Test Owner", 2 + mTextViewListName.getText().toString()+" " +
-//                                    mTextViewListCreatedBy.getText().toString() + " "+ownerEmail + " "+mEncodedEmail);
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    User user = dataSnapshot.getValue(User.class);
+                    if (user != null) {
+                        if (ownerEmail.equals(mEncodedEmail)) {
+                            textViewCreatedByUser.setText(mActivity.getResources().getString(R.string.text_you));
+                        } else {
+                            textViewCreatedByUser.setText(user.getName());
                         }
                     }
+                }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.e(mActivity.getClass().getSimpleName(), mActivity.getString(R.string.log_error_the_read_failed) + databaseError.getMessage());
-                    }
-                });
-            }
-        } else {
-            mTextViewListName.setText("");
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.e(mActivity.getClass().getSimpleName(), mActivity.getString(R.string.log_error_the_read_failed) + databaseError.getMessage());
+                }
+            });
         }
     }
 }

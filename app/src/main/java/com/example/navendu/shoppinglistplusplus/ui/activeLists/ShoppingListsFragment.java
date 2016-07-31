@@ -25,10 +25,9 @@ import com.google.firebase.database.Query;
  * create an instance of this fragment.
  */
 public class ShoppingListsFragment extends Fragment {
-    private static String LOG_TAG = ShoppingListsFragment.class.getSimpleName();
-    private ListView mListView;
-    private ActiveListAdapter mActiveListAdapter;
     private String mEncodedEmail;
+    private ActiveListAdapter mActiveListAdapter;
+    private ListView mListView;
 
     public ShoppingListsFragment() {
         /* Required empty public constructor */

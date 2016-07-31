@@ -9,9 +9,9 @@ public class Constants {
 
     /**
      * Constants related to locations in Firebase, such as the name of the node
-     * where active lists are stored (ie "activeLists")
+     * where active lists are stored (ie "userLists")
      */
-    public static final String FIREBASE_LOCATION_USER_LISTS = "usersLists";
+    public static final String FIREBASE_LOCATION_USER_LISTS = "userLists";
     public static final String FIREBASE_LOCATION_LISTS_SHARED_WITH = "sharedWith";
     public static final String FIREBASE_LOCATION_USER_FRIENDS = "userFriends";
     public static final String FIREBASE_LOCATION_SHOPPING_LIST_ITEMS = "shoppingListItems";

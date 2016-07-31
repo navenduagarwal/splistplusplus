@@ -43,9 +43,12 @@ public class ShoppingList {
         return timestampLastChanged;
     }
 
-
     public HashMap<String, Object> getTimestampCreated() {
         return timestampCreated;
+    }
+
+    public HashMap<String, Object> getTimestampLastChangedReverse() {
+        return timestampLastChangedReverse;
     }
 
     @JsonIgnore
@@ -58,7 +61,12 @@ public class ShoppingList {
         return (long) timestampCreated.get(Constants.FIREBASE_PROPERTY_TIMESTAMP);
     }
 
-    public HashMap<String, User> getUsersShopping() {
+    @JsonIgnore
+    public long getTimestampLastChangedReverseLong() {
+        return (long) timestampLastChangedReverse.get(Constants.FIREBASE_PROPERTY_TIMESTAMP);
+    }
+
+    public HashMap getUsersShopping() {
         return usersShopping;
     }
 
@@ -68,12 +76,4 @@ public class ShoppingList {
         this.timestampLastChanged = timestampNowObject;
     }
 
-    public HashMap<String, Object> getTimestampLastChangedReverse() {
-        return timestampLastChangedReverse;
-    }
-
-    @JsonIgnore
-    public long getTimestampLastChangedReverseLong() {
-        return (long) timestampLastChangedReverse.get(Constants.FIREBASE_PROPERTY_TIMESTAMP);
-    }
 }
