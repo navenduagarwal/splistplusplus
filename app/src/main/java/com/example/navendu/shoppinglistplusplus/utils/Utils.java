@@ -1,12 +1,14 @@
 package com.example.navendu.shoppinglistplusplus.utils;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.navendu.shoppinglistplusplus.R;
 import com.example.navendu.shoppinglistplusplus.model.ShoppingList;
 import com.example.navendu.shoppinglistplusplus.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -120,19 +122,12 @@ public class Utils {
 
     public static void createUserInFirebaseHelper(final String mUserEmail, final String mUserName, final String uid) {
         final String encodedEmail = Utils.encodeEmail(mUserEmail);
-        final DatabaseReference userLocation = FirebaseDatabase.getInstance()
-                .getReferenceFromUrl(Constants.FIREBASE_URL_USERS).child(encodedEmail);
         final DatabaseReference firebaseRef = FirebaseDatabase.getInstance()
                 .getReferenceFromUrl(Constants.FIREBASE_URL);
-        Log.d("testing", uid);
         /**
          * See if there is already a user (for example, if they already logged in with an associated
          * Google account.
          */
-        userLocation.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() == null) {
                     HashMap<String, Object> userAndUidMapping = new HashMap<String, Object>();
                      /* Set raw version of date to the ServerValue.TIMESTAMP value and save into dateCreatedMap */
                     HashMap<String, Object> timestampJoined = new HashMap<>();
@@ -146,13 +141,15 @@ public class Utils {
                             newUserMap);
                     userAndUidMapping.put("/" + Constants.FIREBASE_LOCATION_UID_MAPPINGS + "/"
                             + uid, encodedEmail);
-                    firebaseRef.updateChildren(userAndUidMapping);
-                }
-            }
-
+        /* Try to update the database; if there is already a user, this will fail */
+        firebaseRef.updateChildren(userAndUidMapping).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d(LOG_TAG, R.string.log_error_occurred + databaseError.getMessage());
+            public void onComplete(@NonNull Task<Void> task) {
+                if (!task.isSuccessful()) {
+                             /* Try just making a uid mapping */
+                    firebaseRef.child(Constants.FIREBASE_LOCATION_UID_MAPPINGS)
+                            .child(uid).setValue(encodedEmail);
+                }
             }
         });
     }
