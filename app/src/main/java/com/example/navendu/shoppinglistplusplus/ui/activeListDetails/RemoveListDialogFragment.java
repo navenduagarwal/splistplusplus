@@ -86,6 +86,10 @@ public class RemoveListDialogFragment extends DialogFragment {
         Utils.updateMapForAllWithValue(mSharedWith, mListId, mListOwner, removeListData, "", null);
 
         removeListData.put("/" + Constants.FIREBASE_LOCATION_SHOPPING_LIST_ITEMS + "/" + mListId, null);
+
+        removeListData.put("/" + Constants.FIREBASE_LOCATION_OWNER_MAPPINGS + "/" + mListId,
+                null);
+
         firebaseRef.updateChildren(removeListData);
     }
 }

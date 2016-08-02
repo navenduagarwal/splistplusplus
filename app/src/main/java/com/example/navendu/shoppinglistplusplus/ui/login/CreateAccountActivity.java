@@ -38,10 +38,8 @@ public class CreateAccountActivity extends BaseActivity {
     private EditText mEditTextUsernameCreate, mEditTextEmailCreate;
     private String mUserName, mUserEmail, mPassword;
     private SecureRandom mRandom;
-
-    // [START declare_auth]
     private FirebaseAuth mAuth;
-    // [END declare_auth]
+    private String uid;
 
 
     @Override
@@ -147,6 +145,7 @@ public class CreateAccountActivity extends BaseActivity {
                             }
 
                         } else {
+                            uid = task.getResult().getUser().getUid();
                             //Email Reset Start
                             mAuth.sendPasswordResetEmail(mUserEmail)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -166,7 +165,7 @@ public class CreateAccountActivity extends BaseActivity {
                                                  *  when the registered user will sign in for the first time
                                                  */
                                                 spe.putString(Constants.KEY_SIGNUP_EMAIL, mUserEmail).apply();
-                                                Utils.createUserInFirebaseHelper(mUserEmail, mUserName);
+                                                Utils.createUserInFirebaseHelper(mUserEmail, mUserName, uid);
 
                                                 /**
                                                  * Password reset email sent, open app chooser to pick app

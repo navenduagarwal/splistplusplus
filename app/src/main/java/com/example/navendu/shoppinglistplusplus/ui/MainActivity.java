@@ -54,7 +54,7 @@ public class MainActivity extends BaseActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
 
-                if (user != null) {
+                if (user != null && user.getName() != null) {
                     /* Assumes that the first word in the user's name is the user's first name. */
                     String firstName = user.getName().split("\\s+")[0];
                     String title = firstName + "'s Lists";

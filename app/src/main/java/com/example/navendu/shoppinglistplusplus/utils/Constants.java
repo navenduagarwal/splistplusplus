@@ -16,6 +16,8 @@ public class Constants {
     public static final String FIREBASE_LOCATION_USER_FRIENDS = "userFriends";
     public static final String FIREBASE_LOCATION_SHOPPING_LIST_ITEMS = "shoppingListItems";
     public static final String FIREBASE_LOCATION_USERS = "users";
+    public static final String FIREBASE_LOCATION_UID_MAPPINGS = "uidMappings";
+    public static final String FIREBASE_LOCATION_OWNER_MAPPINGS = "ownerMappings";
 
 
     /**
@@ -59,7 +61,7 @@ public class Constants {
      * Constants for Firebase login
      */
     public static final String PASSWORD_PROVIDER = "password";
-    public static final String GOOGLE_PROVIDER = "google";
+    public static final String GOOGLE_PROVIDER = "google.com";
     public static final String PROVIDER_DATA_DISPLAY_NAME = "displayName";
 
     /**

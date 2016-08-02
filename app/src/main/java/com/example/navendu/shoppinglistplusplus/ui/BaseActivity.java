@@ -139,7 +139,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
     /* logout if mProvider is not null */
         if (mProvider != null) {
             mAuth.signOut();
-
             if (mProvider.equals(Constants.GOOGLE_PROVIDER)) {
                 /* Logout from Google+ */
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(

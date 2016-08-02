@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.navendu.shoppinglistplusplus.R;
 import com.example.navendu.shoppinglistplusplus.model.ShoppingList;
 import com.example.navendu.shoppinglistplusplus.model.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Utility Class
@@ -116,10 +118,13 @@ public class Utils {
         return mapToAddDateToUpdate;
     }
 
-    public static void createUserInFirebaseHelper(final String mUserEmail, final String mUserName) {
+    public static void createUserInFirebaseHelper(final String mUserEmail, final String mUserName, final String uid) {
         final String encodedEmail = Utils.encodeEmail(mUserEmail);
         final DatabaseReference userLocation = FirebaseDatabase.getInstance()
                 .getReferenceFromUrl(Constants.FIREBASE_URL_USERS).child(encodedEmail);
+        final DatabaseReference firebaseRef = FirebaseDatabase.getInstance()
+                .getReferenceFromUrl(Constants.FIREBASE_URL);
+        Log.d("testing", uid);
         /**
          * See if there is already a user (for example, if they already logged in with an associated
          * Google account.
@@ -128,12 +133,20 @@ public class Utils {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() == null) {
+                    HashMap<String, Object> userAndUidMapping = new HashMap<String, Object>();
                      /* Set raw version of date to the ServerValue.TIMESTAMP value and save into dateCreatedMap */
                     HashMap<String, Object> timestampJoined = new HashMap<>();
                     timestampJoined.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
 
                     User newUser = new User(encodedEmail, mUserName, timestampJoined);
-                    userLocation.setValue(newUser);
+                    HashMap<String, Object> newUserMap = (HashMap<String, Object>)
+                            new ObjectMapper().convertValue(newUser, Map.class);
+                     /* Add the user and UID to the update map */
+                    userAndUidMapping.put("/" + Constants.FIREBASE_LOCATION_USERS + "/" + encodedEmail,
+                            newUserMap);
+                    userAndUidMapping.put("/" + Constants.FIREBASE_LOCATION_UID_MAPPINGS + "/"
+                            + uid, encodedEmail);
+                    firebaseRef.updateChildren(userAndUidMapping);
                 }
             }
 

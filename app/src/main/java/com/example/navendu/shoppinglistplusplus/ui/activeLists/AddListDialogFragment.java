@@ -139,6 +139,9 @@ public class AddListDialogFragment extends DialogFragment {
 
             Utils.updateMapForAllWithValue(null, listId, mEncodedEmail, updateShoppingListData, "", shoppingListMap);
 
+            updateShoppingListData.put("/" + Constants.FIREBASE_LOCATION_OWNER_MAPPINGS + "/" + listId,
+                    mEncodedEmail);
+
               /* Do a deep-path update */
             firebaseRef.updateChildren(updateShoppingListData).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override

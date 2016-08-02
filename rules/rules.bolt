@@ -1,0 +1,133 @@
+
+// Objects for ShoppingList++
+type User {
+	name : String,
+	email : EncodedEmail,
+	timestampJoined : Timestamp,
+	hasLoggedInWithPassword : Boolean
+}
+
+type Timestamp {
+	timestamp : Number
+}
+
+type EncodedEmail extends String {
+	validate() {this.test(/^[A-Z0-9,_%+-]+@[A-Z0-9,-]+,[A-Z]{2,4}$/i)}
+}
+
+type ShoppingListItem {
+	itemName : String,
+	owner : EncodedEmail,
+	boughtBy : EncodedEmail | Null,
+	bought : Boolean | Null
+}
+
+type ShoppingList {
+	listName: String,
+	owner: EncodedEmail,
+	timestampCreated: Timestamp,
+	timestampLastChanged: TimestampNow,
+	timestampLastChangedReverse: Timestamp | Null
+}
+
+type PeopleShopping {
+	$shoppingUser : User
+}
+
+type TimestampNow extends Timestamp{
+	validate() {this.timestamp == now}
+}
+
+//Paths
+
+/** SharedWith **/
+path /sharedWith {
+ 
+ read() { isSignedIn() }
+ write() { isSignedIn() }
+}
+
+path /sharedWith/{$listId}/{$userId} is User {
+	
+}
+
+
+/** ShoppingListItems **/
+path /shoppingListItems {
+write() { isSignedIn() }
+}
+
+path /shoppingListItems/{$listId} {
+read() { isSignedIn()}	
+}
+
+path /shoppingListItems/{$listId}/{$itemId} is ShoppingListItem {
+}
+
+/** UserFriends **/
+
+path /userFriends {
+read() { isSignedIn() }
+write() { isSignedIn() }
+}
+
+path /userFriends/{$userEncodedEmail}/{$friendEncodedEmail} is User {
+
+}
+
+/** ShoppingList **/
+path /userLists/{$userEncodedEmail} {
+read() { isSignedIn() }
+write() {isSignedIn()}
+
+}
+
+path /userLists/{$userEncodedEmail}/{$listId}/listName {
+}
+
+path /userLists/{$userEncodedEmail}/{$listId} is ShoppingList {	
+}
+
+/** ShoppingListShoppers **/
+path /userLists/{$userEncodedEmail}/{$listId}/usersShopping/{$shoppingUser} is User {
+	
+}
+
+
+/** Users **/
+path /users {
+read() { isSignedIn() }
+write() { isSignedIn() }
+}
+
+path /users/{$userEncodedEmail} is User {
+}
+
+/** UID Mapping **/
+
+path /uidMappings/{$uid} is EncodedEmail {
+read() { isSignedIn() }
+write() { createOnly(this) && isSignedIn()  && auth.uid == $uid}
+}
+
+/** Owner Mappings **/
+path /ownerMappings/{$listId} is EncodedEmail {
+read() { isSignedIn() }
+write() { isSignedIn() && (prior(root).uidMappings[auth.uid] == prior(this) || prior(root).uidMappings[auth.uid] == this)}	
+}
+
+
+/** Helper Functions **/
+isSignedIn()  { auth != null }
+
+isCurrentUser(encodedemail) { isSignedIn()  && prior(root).uidMappings[auth.uid] == encodedemail}
+
+createOnly(value) {prior(value) == null}
+
+isSharedUser(listid) { prior(root).sharedWith[listid][prior(root).uidMappings[auth.uid]] != null}
+
+getEncodedEmail(){prior(root).uidMappings[auth.uid]}
+
+getOwnerEmail(listId){prior(root).ownerMappings[listId]}
+
+isOwner(listId){isSignedIn() && (getEncodedEmail() == getOwnerEmail(listId))}
