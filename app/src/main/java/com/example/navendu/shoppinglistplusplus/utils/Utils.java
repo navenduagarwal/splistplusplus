@@ -39,6 +39,7 @@ public class Utils {
         mContext = con;
     }
 
+
     /**
      * Return true if currentUserEmail equals to shoppingList.owner()
      * Return false otherwise
@@ -206,4 +207,5 @@ public class Utils {
             });
         }
     }
+
 }

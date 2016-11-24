@@ -1,3 +1,887 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.14.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="42a3ae86dd3ae2876d3e95c2e6e104ae57a50a65">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.facebook.android-facebook-android-sdk-4.14.1_9c433e11bc107bc16d5c27731f32b9c5a1363e14\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-awareness\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a2537b11ae24b42172d34e2a613fc0b903c56158">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-awareness-9.8.0_92049308dbe1fb611cc4c6aee284618d056aa36f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics-impl\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="190a642ba16d1421296a4d794606279b80039c59">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-analytics-impl-9.8.0_ffbf1f434e98adda69d8a32d2b477876730fcd35\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3daa7a9c9009fd386872a84c177a76979bdcafd6">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-plus-9.8.0_30cb8ec626ce37217fdc87ff0040b432c8f8ffa8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="5ffe8867f51cfc726e9fb21db1e5b6962ebf25a0">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-messaging-9.8.0_716dfef020966d4f1eac636cd57608eb312c3f42\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.twitter.sdk.android\twitter-core\2.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="933ee15f1696c3583a97e6f6d6662a97f0d2019d">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.twitter.sdk.android-twitter-core-2.0.0_268b92a875a6b1f334c24e84954baeda94b34fb7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database-connection\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="5f47ede9561595584dca71104baa0fecb36dda87">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-database-connection-9.8.0_011c8bcfbef3c4841b596295273730fb84d3b29b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-clearcut\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ee5304fd374e0b4ebf6b42d4037fbfb2c5336511">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-clearcut-9.8.0_3f8fdda8d3dee0b009139ca61555516908aac58d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.twitter.sdk.android\tweet-ui\2.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b0424f06fdb2897efee7b4cf999c60e0b1bbfe50">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.twitter.sdk.android-tweet-ui-2.0.0_21b9fce0e054653962ad50df7edb42675bb3a508\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-annotations\2.8.4\de3570327cf8d1d4f37920535c51a1f74225a6de\jackson-annotations-2.8.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="de3570327cf8d1d4f37920535c51a1f74225a6de">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\jackson-annotations-2.8.4_6e6ef12c736be94c8c4e028abb30215c8f909677\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.2.0\f7873a2ebde246a45c2a8d6f3247108b4c88a879\okhttp-3.2.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f7873a2ebde246a45c2a8d6f3247108b4c88a879">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\okhttp-3.2.0_51dc49948e650009a83b4cca6c81f78f256926c9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-vision\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a30aea7df545072ad3c06f56b2efc13e67222140">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-vision-9.8.0_c3dcae1329de5e867378c099d82e432426df4fb7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="9dae58326f6f6a515022468cce56dd04ec3b9fdb">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-gcm-9.8.0_82707d7f3ee581e70da522ada0f88f245de46dc0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="16afe57c1d7f8165d107c7806ce7b0c71de87159">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-analytics-9.8.0_2753a16751dc4d56ca152ca3a6fbf416f7c25d04\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.0.1\jars\libs\internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e5343c9d19cb19ff55f6b268c7f3fe8c9d224f6f">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_a66dc08b9e9a57450cb8af24369231f7f829ee24\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="51eba4a4dd73044f90a9d58dd7ca34adbebfcf4e">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-25.0.1_5457ef0abfd01c85563c21392d5ca2414744598e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.firebaseui\firebase-ui-auth\1.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="41f89f608187d3d0c83ce69142ae0d223d40c06d">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.firebaseui-firebase-ui-auth-1.0.0_101f0e81fdf8a7ed84dcc0fbaeee26d10199fa5e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tagmanager-api\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="266570862e5792ef3c51143a8b8593cf54fac68d">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tagmanager-api-9.8.0_bee057829c080e09653b31e6a9855c4f2872143b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.firebase\firebase-config\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="289cad663c288ce965463cb9ece8b35cc7de0fac">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-config-9.8.0_d22613e225bc886680f32348c3be08f9f7d2c028\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.twitter.sdk.android\tweet-composer\2.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6b57821de6e2cbd036be860fea35812a413a3a9d">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.twitter.sdk.android-tweet-composer-2.0.0_70089d0af05bae4e060d1f0d5fcfd867e958f03e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="7da23bdb91ddd66e6ea5e00c07ace60411476a0d">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_4da790d4c64f96570e2e461f8b8339924ac66ef7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ca851be26ff89f5b32cc222cee98139fb3fac830">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-auth-9.8.0_132782ca4ad34b99cfd94eff117209a723723dd5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-iid\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="85299bf1924dde0200109a58033c5ef84ecb6991">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-iid-9.8.0_fa9e90ca452712187097d6ade39de1b21b116e5c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="9ff04cc3470178a44512624036751a803418c2ca">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-analytics-9.8.0_a5e5eb4759baede8e27df047e32b594206e234b7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="15e59454416c6341bd3ed2533b585cd340682dd1">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-auth-9.8.0_cb5f7c7b4a0140c5a9ad0eb9ca5d03f48da9d805\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="04bbbddf868aa02dd33f9e90d8f5d908c360f638">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-location-9.8.0_350a2767c1835204e4df85948166336dad454a8b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="1108575c7dc7b7f5b378b3290ac90de81a9b8830">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-cardview-v7-25.0.1_003131328230f7d91286406fc566729123aaa86a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.firebase\firebase-storage-common\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ec9104b53aee77dfcfd2fe1c4add23ff7c4df55f">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-storage-common-9.8.0_ef1efe326a62cdd5b46169d63056ef23690cf66e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.0.1\jars\libs\internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c5b7145fb34779b6639147b8f2f8dd77c0db771b">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_11799c9fc92e2ad9a28af63599d74685ce6847ca\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="351a855c0c2ec14b22e7c5f4b58fd6baa46c7b80">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_30b3485d79054675d2a5eced4b88190f4fca53f9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="03df48d3713661d66ad024b1e406259a4c26fcac">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-database-9.8.0_4e9371df2d9996bf83ed7e851264ac6cfe240619\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\transition\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c1b6ab157e8e12cb08b9ee82bb5e3c5d22632eb3">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-transition-25.0.1_8c4e3e63bcb3c74f502fec914404e88aca692ffe\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.0.1\jars\libs\internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f83b00041ecfba705603fec40363416c7de69719">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_825fccde443871bf838b341d77a0d03b583830da\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast-framework\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="055eed08c9cff50cac0db69c74c4d9ff7aef3d84">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-cast-framework-9.8.0_cc2f0df30797a6065848ff13a4ccc273aaff1021\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="bf2e1838e4428616c1aa26edf43de72b5b99bf84">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tasks-9.8.0_9c0ec9f05e22e2b72345652767f38531115630a8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="20a3c4e355150c15c13dd58045d43ad0c717d916">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-safetynet-9.8.0_52758d999e6830dcc652ebad9d34d5173681f94d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.firebaseui\firebase-ui\1.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="16226703bab55ec42457666213cd3503799d36a8">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.firebaseui-firebase-ui-1.0.0_f79c176c8ba3fb3e736883fd820afcd7f92f0a84\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="26c6eef571592c91f29e56fda0bac73321de0c92">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-fragment-25.0.1_6ba4f11d64b92be3a8dc1a484a2db45c6f089b25\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\io.fabric.sdk.android\fabric\1.3.13\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="23e3acde10f4cf52778f8dc88107fb96459f2392">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\io.fabric.sdk.android-fabric-1.3.13_4dd1443c4421789ec2124947ec270b9a066521da\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\.gradle\caches\modules-2\files-2.1\com.twitter\twitter-text\1.13.0\78415b95ae3184c5926d593feab64bfc0b73b2dd\twitter-text-1.13.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="78415b95ae3184c5926d593feab64bfc0b73b2dd">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\twitter-text-1.13.0_c82a5ed319d6444dc1a8a463d35918fe84be7479\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="122ec9237acd8a57d974b9d529987f1ee6ca5aea">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-maps-9.8.0_971e551a4ebc98843f60f0570c80616c8dbf2440\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e56f31b23ddb067f95f01255295167db7c798612">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appinvite-9.8.0_c7fe8fa970a420dfb33e0fdf1c0b7187a1155b24\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.6.1\b9d63507329a7178e026fc334f87587ee5070ac5\gson-2.6.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b9d63507329a7178e026fc334f87587ee5070ac5">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\gson-2.6.1_d55bd8c2ba6c1071d13ee5f5443dc6c5c67b6ce2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a7a04d6b7c01e569a285fa627cf64f5b05295906">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-fitness-9.8.0_30c5cd1ae2e89e48695f835eb3e4dae3af9c1ec6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="74ac7cbcf0de4a88e59612dc3a9e3f9e71acb4ca">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-cast-9.8.0_5369300dd2e4df7b4b614d1e42427864d7bf5ca2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="cef85cfc7df40e29fbea58844dd4c1e7d0b15542">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-identity-9.8.0_fedcfa9ec8131372389eba9d67369fcdb2f30488\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.twitter.sdk.android\twitter\2.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="79f10814ccc3cf45cd5c1d566a3f6b5bcf7c1562">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.twitter.sdk.android-twitter-2.0.0_241a17dbab3db53d85c64c11391ebc0e26569864\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="7e92aadd0697922316d1395c1887a23aebec640a">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-base-9.8.0_ab5f8d6ba74e7962ff72cec116786d32d83fc5c9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c61641e333fa88da21758bab8cc28ee16604b05f">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-common-9.8.0_0aa8aa5130222ea89c90810a0d91b0b8e068464d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\25.0.1\support-annotations-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a09194311f8f89c3e6db09d79f50897a889d615e">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.0.1_3881197e1fec6694b6012e3976e107efedd319e3\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f2d240dd085626f03f759c41d628a0c8b63e491f">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-ads-9.8.0_33b3077c0ae36b05950eff7a4250f30d8c735e40\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.firebaseui\firebase-ui-database\1.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c7e655e4fd5d01177dfec3daadd938ce2d1f9b03">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.firebaseui-firebase-ui-database-1.0.0_cf3d41007209e79f0154f17036ef99f94fb54615\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\picasso-2.5.2_53b85e969b048ced08594e8ffee0a2099fd4b0e8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\retrofit\2.0.2\43eeae0b9fb087bb3194ba59ab63a38a32fbf3e\retrofit-2.0.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="043eeae0b9fb087bb3194ba59ab63a38a32fbf3e">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\retrofit-2.0.2_027e599ac6f8da64f32f2efbce441a93d416df04\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.firebase\firebase-storage\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="7fd91ec2730fdaa82906aad32a3f3d3e574bae56">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-storage-9.8.0_98a97b2a51361bd425f7f5c7aad1bd29d48ca0ab\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c81df6bd515398ebe45089b0b16c55752a131f6a">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-nearby-9.8.0_c9df807cb784c28a944e32d9688a15f943b95f21\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.firebase\firebase-crash\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b4671be3d1288bf4e5f527cd33e42909fbe4ecc6">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-crash-9.8.0_b4d4c68c014970e5429164272c0766f85ab1701e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="00d4c8eebf2b681073c72a26bd0849549e51c7cb">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-utils-25.0.1_b6e519afda0ba2c69e10ddaa9c75e87ec81c3a27\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.6.0\98476622f10715998eacf9240d6b479f12c66143\okio-1.6.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="98476622f10715998eacf9240d6b479f12c66143">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\okio-1.6.0_0470f91ad8bd5c38d8188f6397f5c14b776d2bb4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\converter-gson\2.0.2\f8d87f15b94b8d74e7ccf61d7eedb558811cdb30\converter-gson-2.0.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f8d87f15b94b8d74e7ccf61d7eedb558811cdb30">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\converter-gson-2.0.2_17d88c68a2845e32e482e1332036eba197eac148\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="fbb3885c40e431cd2b0dc69c0cab2bf6d5da7b43">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-games-9.8.0_a65bb7d4d2ce23635fda2e4b97243832d93ff2ae\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth-module\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3f8f779a22cbb4c4d0759467a4f1011bb5252970">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-auth-module-9.8.0_13f2e54caa5fce3ae389f1a75b9a4ec5c2ac0d0c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tagmanager\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a972970c8beddb69c198f61f3fc55f0606a7dfe3">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tagmanager-9.8.0_1ada6fabfc9177198786f31798e707230e310ee7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.0.1\jars\libs\internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c0bd6ffb002a85b5e7cad29f8558d1cc59539679">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_6d21d949ad183abc45c730c1f3b5f5c8033bbffb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth-common\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="4438b1a7848a7c571122ba618aa1304514aabee6">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-auth-common-9.8.0_7d39eefaa6c219d04fc2ac9f99845887566e6d76\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth-base\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a1ed98e01bd58976d80c062fd0ea2968a1ff68a1">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-auth-base-9.8.0_2d1502ccb68e9c4fe3c92feed36090e907017608\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="bc7e99e8d0fc279a05aa91378530f467ad62d443">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-25.0.1_f04cef8c72a731e405e098de53d88b94f94e2d09\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-applinks\1.4.0\8ad21bf21784dacce5f2043afb97218cc377e835\bolts-applinks-1.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8ad21bf21784dacce5f2043afb97218cc377e835">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\bolts-applinks-1.4.0_09eec07ac907b674e1d2f611ba9eb8ffa40f0f78\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="0b8e087da59c0b062c33f49a335e59f907086da2">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-wearable-9.8.0_715ee830af87e815d65a79ad52f69ed910bf43fb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.firebaseui\firebase-ui-storage\1.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3c433e48557e476290f45fb6cb568d1a103c9978">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.firebaseui-firebase-ui-storage-1.0.0_6d5039b0b6a7e1fe15ee5f81a0b957a22af25fe0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics-impl\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="50e35ae101a679c4c8ef3dda075b1df9d5d947d9">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-analytics-impl-9.8.0_b5310181580c0b19ac72bed35bc53a24e0f945be\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f7ac4b327fdb9e2ee386f5adc46164927658de4b">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-25.0.1_eeda4ea4248889e55b9d65f83fe3fa0ebe4a6a49\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.firebase\firebase-iid\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6b6f292b8b951dcf2ecf2b20853e3eabc7d65c48">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-iid-9.8.0_a67f83fbb4d39872731370e45b4c05a33d80ea87\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="0b53c4b90654b67ee3892a8e2e7b819c083ab7a6">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-drive-9.8.0_c9619f8b8a3339a4f91d8451b7c8dc7814690389\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\customtabs\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="2d1eaa9e0b98f8fc4c2b989d9b30d4f1480648ac">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-customtabs-23.4.0_c9984c862c5d80c5b0dda8104804538f3ad49627\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-instantapps\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="00d358528c5a8731a6e19bca910cbb3fd755ee31">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-instantapps-9.8.0_28827a051266d61023af0844f71d991e46aae7a9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads-lite\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e9b2cfdfd59b03643f1e240668275378b96615a8">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-ads-lite-9.8.0_a24a128c2a9ac69086a2a106b54d2b3681504645\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="772bed2d992b67b9d0327f766cc95cd63031dcd3">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-25.0.1_2844576e512eb1b8d9cdf43c46872505afe9e7bd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\24.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b327fbe2fad414bc38cf0ce8f7efe1a38f572837">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-mediarouter-v7-24.0.0_7b3f8f0e459adb8ae37a2f149a5287036a42cdf1\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6a1479afe9f1b3645e1cd9a87318976893472818">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-media-compat-25.0.1_6d807aa4d0d30cc5505d5ec60eaf9d01d5555fd9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b24e1c688744078e1fa833ffadf696794761bbe5">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-25.0.1_615819ddc0998f1aea7fc67b8f897c521511781b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-databind\2.8.4\1c36c81e79cacdf48116afba8495e3393d267ba1\jackson-databind-2.8.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="1c36c81e79cacdf48116afba8495e3393d267ba1">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\jackson-databind-2.8.4_68b5b5ef74b88e71985bd5f7f38b5ea46f31100a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.8.4\ca365c0817cc345ea831cae7c4e9b42a72b32281\jackson-core-2.8.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ca365c0817cc345ea831cae7c4e9b42a72b32281">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\jackson-core-2.8.4_1622a3ac80070aa94840f83ea3c8efdffed7c18e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e3234cd25e23069abd48ecd2117bc0e8011bf45a">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appindexing-9.8.0_0a92890f2f0ed6b87a4e94a885c304534e66ab68\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\multidex\1.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-multidex-1.0.1_afc4cd6b449f66db95d897336cb73cfbf00b859c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="9f6d236bac26d02b410e4ee186ba517ace5ee661">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-basement-9.8.0_253c4df6c62843d59b3be9277458bee5cca5c99c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.1\jars\libs\internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3af8cc51ef7088e56f132780da8c0bd858b6a6ad">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_100c9b16d4c5b7b0a68ce05d752a7c1dcdf0502e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="297d4bcf6ed4e747a1bf7d0d094a2d911a8d3a8e">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-25.0.1_0897119ddfc7f9a441a2cee3c27f2a4377465fbf\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\design\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3b236883e0df6002cabb01ce57d00a5b1e5de610">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-25.0.1_1028215ec4c7522a6303ed6f63928f1c6f10df8e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-tasks\1.4.0\d85884acf6810a3bbbecb587f239005cbc846dc4\bolts-tasks-1.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\bolts-tasks-1.4.0_a680daad66e7d2a6aeff4abec5924f025aef5468\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="910c013c511f752c4bbe24c5f492f669f4a3ccc0">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-wallet-9.8.0_401cadb6b2ebc902400ed31bed3589c5cf8c654d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\24.0.0\jars\libs\internal_impl-24.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b6763651ec29b4c95e7bbe63fc393ffcc8c4c2c5">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.0.0_96cc09158db90a37cb2b28b33866965ffd10445a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="2d3035050a075484cbf2e33f1ce1f779bae4d451">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-panorama-9.8.0_9cffb3de2858cec51fb5abe8a69e9ee86d7fdd11\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\support-v4\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-25.0.1_44923a2e0ca79199fe236feff39779cfa62359c5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\.gradle\caches\modules-2\files-2.1\com.github.bumptech.glide\glide\3.7.0\9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4\glide-3.7.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\glide-3.7.0_b9300a86e5115a754426011c05f94927aa739a54\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.android.support\palette-v7\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3b7105277df9a8013468215c451ddefac2499d3a">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-palette-v7-24.2.1_9deefd9956e751d08064a5b5d5217f73829d4a66\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-places\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="679251204de40ace98776a6f4e3a649c27e3d89f">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-places-9.8.0_ed6b526c7430ab6f8b1a4dafd678ae8c57457695\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gass\9.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="363a20f1d25336e827dd24020f2ecdc42d62638f">
+        <dex dex="C:\Users\navendu\AndroidStudioProjects\ShoppingListPlusPlus\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-gass-9.8.0_c22303a9d02a3c73b4805dd5e6d50e54e7f5541b\classes.dex" />
+    </item>
+
+</items>

@@ -242,11 +242,27 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.OnCon
      * Helper method that makes sure a user is created if the user
      * logs in with Firebase's Google login provider.
      */
-    private void setAuthenticatedUserGoogle(UserInfo user) {
+    private void setAuthenticatedUserGoogle(final UserInfo user) {
         final String unprocessedEmail = user.getEmail().toLowerCase();
         mEncodedEmail = Utils.encodeEmail(unprocessedEmail);
         final String userName = user.getDisplayName();
-        Utils.createUserInFirebaseHelper(mEncodedEmail, userName, user.getUid());
+
+        final DatabaseReference userLocation = FirebaseDatabase.getInstance()
+                .getReferenceFromUrl(Constants.FIREBASE_URL_USERS).child(mEncodedEmail);
+        userLocation.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() == null) {
+                    Utils.createUserInFirebaseHelper(mEncodedEmail, userName, user.getUid());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(LOG_TAG, getString(R.string.log_error_occurred) + databaseError.getMessage());
+            }
+        });
+
     }
 
     /**

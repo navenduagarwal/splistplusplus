@@ -269,5 +269,6 @@
     <string name="sort_by_list_name_value">listName</string>
     <string name="sort_by_owner_value">owner</string>
     <string name="sort_by_most_recently_changed_value">timestampLastChangedReverse/timestamp</string>
+    <string name="notification_text">Click notification to return to app</string>
 
 </resources>
